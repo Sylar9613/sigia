@@ -1,0 +1,268 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark-my fixed-top" id="mainNav">
+    <a class="chip" href="{{ path('homepage') }}"><img src="{{ asset('images/logo.png') }}" width="40px" height="40px" style="margin-bottom: 10px; margin-right: 10px;"><span class="logo" style="width: auto; font-size: 30px; font-family: 'Segoe Print', Mistral, 'Segoe UI', Arial, sans-serif;" id="logo">SiGIA</span></a>
+    <span class="navbar-brand logo" id="menu_lateral" style="width: auto; cursor: pointer;" onclick="openNav()" title="Abrir menú lateral">&nbsp;☰&nbsp;</span>
+    <div class="chip chip-dark" id="chip">
+        <img src="{{ asset('images/' ~ app.user.avatar) }}{#{% if is_granted("ROLE_SUPER_ADMIN") %}
+                                {{ asset('images/avatar2.png') }}
+                              {% elseif is_granted("ROLE_ADMIN") %}
+                                {{ asset('images/avatar3.png') }}
+                              {% else %}
+                                {{ asset('images/avatar1.png') }}
+                              {% endif %}#}" alt="Person" width="76" height="76">
+        <a id="user" class="user-light" href="{{ path('user_show', { 'id': app.user.id }) }}">{{ app.user.username }}</a>
+    </div>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+            <li {% if url=='home' %}class="nav-item active"{% endif %}><a class="nav-link" href="{{ path('homepage') }}"><i class="fa fa-fw fa-home"></i><span class="names">Home</span></a></li>
+            {% if is_granted("ROLE_SUPER_ADMIN") %}
+                <li class="{% if url=='sistema' or url=='clasificador' or url=='auditor' or url=='admin' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="sistemasDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-laptop"></i><span class="names">&nbsp;Admin</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="sistemasDropdown">
+                        <li><a href="{{ path('admin') }}">Admin</a></li>
+                        <li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('municipio_index') }}">Municipio</a></li>
+                        <li><a href="{{ path('localidad_index') }}">Localidad</a></li>
+                        <li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('organismo_index') }}">Organismos</a></li>
+                        <li><a href="{{ path('osde_index') }}">OSDE</a></li>
+                        <li><a href="{{ path('entidad_index') }}">Entidad</a></li>
+                        <li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('plaza_index') }}">Plazas</a></li>
+                        <li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('nivel_index') }}">Nivel escolar</a></li>
+                        <li><a href="{{ path('cargo_index') }}">Cargo</a></li>
+                        {#<li><a href="{{ path('capacitacion_index') }}">Capacitación</a></li>
+                        #}<li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('auditor_index') }}">Auditor</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item{% if url=='planificacion' %} active{% endif %} dropdown" data-toggle="tooltip" data-placement="right" title="Planificación">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-archive"></i><span class="names">&nbsp;Planificaci&oacute;n</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="messagesDropdown">
+                        <li class="dropdown-submenu">
+                            <a id="test1" class="test" tabindex="-1" href="#">Da&ntilde;os <span id="caret" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop1">
+                                <li><a tabindex="-1" href="{{ path('phd_index') }}">PHD</a></li>
+                                <li><a tabindex="-1" href="{{ path('phc_index') }}">PHC</a></li>
+                                <li><a tabindex="-1" href="{{ path('hc_index') }}">HC</a></li>
+                                <li><a tabindex="-1" href="{{ path('responsabilidad_index') }}">Responsabilidad</a></li>
+                                {#<li class="dropdown-submenu">
+                                    <a class="test" href="#">Another dropdown <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">3rd level dropdown</a></li>
+                                        <li><a href="#">3rd level dropdown</a></li>
+                                    </ul>
+                                </li>#}
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a id="test2" class="test" tabindex="-1" href="#">Acciones<span id="caret2" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop2">
+                                <li><a tabindex="-1" href="{{ path('accion_control_index') }}">Acci&oacute;n de Control</a></li>
+                                {#<li><a tabindex="-1" href="{{ path('phc_index') }}">Planes</a></li>#}
+                                <li><a tabindex="-1" href="{{ path('particularidad_index') }}">Particularidades</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a id="test3" class="test" tabindex="-1" href="#">Par&aacute;metros <span id="caret3" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop3">
+                                <li><a tabindex="-1" href="{{ path('causa_condicion_index') }}">Causas</a></li>
+                                <li><a tabindex="-1" href="{{ path('combustible_index') }}">Combustible</a></li>
+                                <li><a tabindex="-1" href="{{ path('implicado_index') }}">Implicados</a></li>
+                                <li><a tabindex="-1" href="{{ path('situacion_index') }}">Situaciones</a></li>
+                                <li><a tabindex="-1" href="{{ path('tipo_accion_index') }}">Tipos de acciones</a></li>
+                                <li><a tabindex="-1" href="{{ path('medida_disciplinaria_index') }}">Medidas disc.</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li {% if url=='usuario' %}class="nav-item active"{% endif %}><a class="nav-link" href="{{ path('user_index') }}"><i class="fa fa-fw fa-users"></i><span class="names">Usuarios</span></a></li>
+            {% elseif is_granted("ROLE_ADMIN") %}
+                <li class="{% if url=='sistema' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Ubicación">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="sistemasDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-map-marker"></i><span class="names">&nbsp;Ubicaci&oacute;n</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="sistemasDropdown">
+                        <li><a href="{{ path('municipio_index') }}">Municipio</a></li>
+                        <li><a href="{{ path('localidad_index') }}">Localidad</a></li>
+                    </ul>
+                </li>
+                <li class="{% if url=='clasificador' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Empleos">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="clasificadoresDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-bank"></i><span class="names">&nbsp;Empleos</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="clasificadoresDropdown">
+                        <li><a href="{{ path('organismo_index') }}">Organismos</a></li>
+                        <li><a href="{{ path('osde_index') }}">OSDE</a></li>
+                        <li><a href="{{ path('entidad_index') }}">Entidad</a></li>
+                    </ul>
+                </li>
+                <li class="{% if url=='auditor' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Personal">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="personalDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-comments"></i><span class="names">&nbsp;Personal</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+                        <li><a href="{{ path('plaza_index') }}">Plazas</a></li>
+                        <li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('nivel_index') }}">Nivel escolar</a></li>
+                        <li><a href="{{ path('cargo_index') }}">Cargo</a></li>
+                        <li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('auditor_index') }}">Auditores</a></li>
+                        {#<li><a href="{{ path('capacitacion_index') }}">Capacitación</a></li>#}
+                    </ul>
+                </li>
+                <li class="nav-item{% if url=='planificacion' %} active{% endif %} dropdown" data-toggle="tooltip" data-placement="right" title="Planificación">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-archive"></i><span class="names">&nbsp;Planificaci&oacute;n</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="messagesDropdown">
+                        <li class="dropdown-submenu">
+                            <a id="test1" class="test" tabindex="-1" href="#">Da&ntilde;os <span id="caret" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop1">
+                                <li><a tabindex="-1" href="{{ path('phd_index') }}">PHD</a></li>
+                                {#<li class="dropdown-submenu">
+                                    <a class="test" href="#">Another dropdown <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">3rd level dropdown</a></li>
+                                        <li><a href="#">3rd level dropdown</a></li>
+                                    </ul>
+                                </li>#}
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a id="test2" class="test" tabindex="-1" href="#">Acciones<span id="caret2" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop2">
+                                <li><a tabindex="-1" href="{{ path('accion_control_index') }}">Acci&oacute;n de Control</a></li>
+                                {#<li><a tabindex="-1" href="{{ path('phc_index') }}">Planes</a></li>#}
+                                <li><a tabindex="-1" href="{{ path('particularidad_index') }}">Particularidades</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a id="test3" class="test" tabindex="-1" href="#">Par&aacute;metros <span id="caret3" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop3">
+                                <li><a tabindex="-1" href="{{ path('causa_condicion_index') }}">Causas</a></li>
+                                <li><a tabindex="-1" href="{{ path('combustible_index') }}">Combustible</a></li>
+                                <li><a tabindex="-1" href="{{ path('implicado_index') }}">Implicados</a></li>
+                                <li><a tabindex="-1" href="{{ path('situacion_index') }}">Situaciones</a></li>
+                                <li><a tabindex="-1" href="{{ path('tipo_accion_index') }}">Tipos de acciones</a></li>
+                                <li><a tabindex="-1" href="{{ path('medida_disciplinaria_index') }}">Medidas disc.</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            {% elseif is_granted("ROLE_JURIDICO") %}
+                <li class="{% if url=='auditor' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Personal">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="personalDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-comments"></i><span class="names">&nbsp;Personal</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+                        <li><a href="{{ path('auditor_index') }}">Auditores</a></li>
+                        {#<li><a href="{{ path('capacitacion_index') }}">Capacitación</a></li>#}
+                    </ul>
+                </li>
+                <li class="nav-item{% if url=='planificacion' %} active{% endif %} dropdown" data-toggle="tooltip" data-placement="right" title="Planificación">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-archive"></i><span class="names">&nbsp;Planificaci&oacute;n</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="messagesDropdown">
+                        <li class="dropdown-submenu">
+                            <a id="test1" class="test" tabindex="-1" href="#">Da&ntilde;os <span id="caret" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop1">
+                                <li><a tabindex="-1" href="{{ path('phd_index') }}">PHD</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a id="test2" class="test" tabindex="-1" href="#">Acciones<span id="caret2" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop2">
+                                <li><a tabindex="-1" href="{{ path('accion_control_index') }}">Acci&oacute;n de Control</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            {% elseif is_granted("ROLE_ATP") %}
+                <li class="nav-item{% if url=='planificacion' %} active{% endif %} dropdown" data-toggle="tooltip" data-placement="right" title="Planificación">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-archive"></i><span class="names">&nbsp;Planificaci&oacute;n</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="messagesDropdown">
+                        <li class="dropdown-submenu">
+                            <a id="test1" class="test" tabindex="-1" href="#">Da&ntilde;os <span id="caret" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop1">
+                                <li><a tabindex="-1" href="{{ path('phc_index') }}">PHC</a></li>
+                                <li><a tabindex="-1" href="{{ path('hc_index') }}">HC</a></li>
+                                <li><a tabindex="-1" href="{{ path('responsabilidad_index') }}">Responsabilidad</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a id="test3" class="test" tabindex="-1" href="#">Par&aacute;metros <span id="caret3" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop3">
+                                <li><a tabindex="-1" href="{{ path('implicado_index') }}">Implicados</a></li>
+                                <li><a tabindex="-1" href="{{ path('medida_disciplinaria_index') }}">Medidas disc.</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            {% elseif is_granted("ROLE_SUPERVISOR") %}
+                <li class="{% if url=='auditor' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Personal">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="personalDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-comments"></i><span class="names">&nbsp;Personal</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+                        <li><a href="{{ path('plaza_index') }}">Plazas</a></li>
+                        <li><a href="{{ path('auditor_index') }}">Auditores</a></li>
+                        {#<li><a href="{{ path('capacitacion_index') }}">Capacitación</a></li>#}
+                    </ul>
+                </li>
+                <li class="nav-item{% if url=='planificacion' %} active{% endif %} dropdown" data-toggle="tooltip" data-placement="right" title="Planificación">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-archive"></i><span class="names">&nbsp;Planificaci&oacute;n</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="messagesDropdown">
+                        <li class="dropdown-submenu">
+                            <a id="test1" class="test" tabindex="-1" href="#">Da&ntilde;os <span id="caret" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop1">
+                                <li><a tabindex="-1" href="{{ path('phd_index') }}">PHD</a></li>
+                                <li><a tabindex="-1" href="{{ path('phc_index') }}">PHC</a></li>
+                                <li><a tabindex="-1" href="{{ path('hc_index') }}">HC</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu">
+                            <a id="test2" class="test" tabindex="-1" href="#">Acciones<span id="caret2" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop2">
+                                <li><a tabindex="-1" href="{{ path('accion_control_index') }}">Acci&oacute;n de Control</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            {% else %}
+                <li class="{% if url=='clasificador' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Empleos">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="clasificadoresDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-bank"></i><span class="names">&nbsp;Empleos</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="clasificadoresDropdown">
+                        <li><a href="{{ path('entidad_index') }}">Entidad</a></li>
+                    </ul>
+                </li>
+                <li class="{% if url=='auditor' %}nav-item active {% endif %}nav-item dropdown" data-toggle="tooltip" data-placement="right" title="Personal">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="personalDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-comments"></i><span class="names">&nbsp;Personal</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="personalDropdown">
+                        <li><a href="{{ path('plaza_index') }}">Plazas</a></li>
+                        <li><hr style="width:85%; margin:6px; background-color: whitesmoke"/></li>
+                        <li><a href="{{ path('auditor_index') }}">Auditores</a></li>
+                        {#<li><a href="{{ path('capacitacion_index') }}">Capacitación</a></li>#}
+                    </ul>
+                </li>
+                <li class="nav-item{% if url=='planificacion' %} active{% endif %} dropdown" data-toggle="tooltip" data-placement="right" title="Planificación">
+                    <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-fw fa-archive"></i><span class="names">&nbsp;Planificaci&oacute;n</span></a>
+                    <ul class="dropdown-menu" aria-labelledby="messagesDropdown">
+                        <li class="dropdown-submenu">
+                            <a id="test2" class="test" tabindex="-1" href="#">Acciones<span id="caret2" class="fa fa-fw fa-caret-right"></span></a>
+                            <ul class="dropdown-menu" id="drop2">
+                                <li><a tabindex="-1" href="{{ path('accion_control_index') }}">Acci&oacute;n de Control</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_SUPERVISOR") %}
+                <li {% if url=='secure' %}class="nav-item active"{% endif %}><a class="nav-link" href="{{ path('log_index') }}"><i class="fa fa-fw fa-list-ul"></i><span class="names">Logs</span></a></li>
+            {% endif %}
+        </ul>
+        <ul class="navbar-nav ml-auto navbar-right">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Cambiar tema"><a class="nav-link" id="toggleNavColor" href="{#{{ path('tema') }}#}#"><i class="fa fa-fw fa-adjust"></i></a></li>
+            {% if is_granted("ROLE_SUPER_ADMIN") %}
+            <li class="nav-item{% if url=='database' %} active{% endif %}" data-toggle="tooltip" data-placement="right" title="Database"><a class="nav-link" href="{{ path('admin') }}"><i class="fa fa-fw fa-database"></i></a></li>
+            {% endif %}
+            <li class="nav-item">
+                <a style="cursor: help;" class="nav-link" data-toggle="modal" data-target="#infoModal">
+                    <i class="fa fa-fw fa-info"></i></a>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-fw fa-sign-out"></i>Salir</a>
+            </li>
+        </ul>
+    </div>
+</nav>

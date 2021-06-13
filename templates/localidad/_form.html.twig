@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+    {% if form_errors(form.nombre) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.municipio) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.municipio) }}
+        </div>
+    {% endif %}
+    <div class="form-group">
+        <div style="float: right;">
+            {{ form_row(form.municipio) }}
+        </div>
+        {{ form_row(form.nombre) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-nombre', 'id_span':'span-nombre'}) }}
+    </div>
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields() {
+        var spanNombre = document.getElementById('span-nombre');
+        var inputNombre = document.getElementById("localidad_nombre");
+        if (inputNombre.checkValidity() === false) {
+            $('#req-nombre').removeClass('collapse');
+            spanNombre.innerHTML = inputNombre.validationMessage;
+            $('#localidad_nombre:invalid').css("border", "1px solid #dc3545");
+        }
+        else {
+            $('#req-nombre').addClass('collapse');
+            $('#localidad_nombre').css("border", "1px solid #ced4da");
+        }
+    }
+</script>

@@ -1,0 +1,34 @@
+{{ form_start(form) }}
+    {% if form_errors(form.nombre) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    {{ form_row(form.nombre) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-nombre', 'id_span':'span-nombre'}) }}
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields() {
+        var spanEval = document.getElementById('span-nombre');
+        var inputEval = document.getElementById("tipo_accion_nombre");
+        if (inputEval.checkValidity() === false) {
+            $('#req-nombre').removeClass('collapse');
+            spanEval.innerHTML = inputEval.validationMessage;
+            $('#tipo_accion_nombre:invalid').css("border", "1px solid #dc3545");
+        }
+        else {
+            $('#req-nombre').addClass('collapse');
+            $('#tipo_accion_nombre').css("border", "1px solid #ced4da");
+        }
+    }
+</script>
+

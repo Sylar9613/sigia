@@ -1,0 +1,37 @@
+{% if 'now'|date("d")==10 and 'now'|date("m")==01 %}
+    {% set colorOfWeek = ['#2243B6','#2D383A','#319177','#652DC1','#C9C0BB','#ED0A3F','#FFDB00'] %}
+    {% set colorOfWeek2 = ['#778BA5','#C8C8CD','#93DFB8','#8B72BE','#D9D6CF','#FF91A4','#FFFF99'] %}
+    {% set cardinales = ['er','do','er','to','to','to','mo','vo','no','mo'] %}
+    {% set variable = 'now'|date("Y")-2009-10+1 %}
+    {% set var1,var2 = "red","white" %}
+    {% if 'now'|date("D")=='Sun' or 'now'|date("D")=='Dom' %}
+        {% set var1,var2 = colorOfWeek[0],colorOfWeek2[0] %}
+    {% elseif 'now'|date("D")=='Mon' or 'now'|date("D")=='Lun' %}
+        {% set var1,var2 = colorOfWeek[1],colorOfWeek2[1] %}
+    {% elseif 'now'|date("D")=='Tue' or 'now'|date("D")=='Mar' %}
+        {% set var1,var2 = colorOfWeek[2],colorOfWeek2[2] %}
+    {% elseif 'now'|date("D")=='Wed' or 'now'|date("D")=='Mie' %}
+        {% set var1,var2 = colorOfWeek[3],colorOfWeek2[3] %}
+    {% elseif 'now'|date("D")=='Thu' or 'now'|date("D")=='Jue' %}
+        {% set var1,var2 = colorOfWeek[4],colorOfWeek2[4] %}
+    {% elseif 'now'|date("D")=='Fri' or 'now'|date("D")=='Vie' %}
+        {% set var1,var2 = colorOfWeek[5],colorOfWeek2[5] %}
+    {% else %}
+        {% set var1,var2 = colorOfWeek[6],colorOfWeek2[6] %}
+    {% endif %}
+    <div style="background: {{ var1 }}" class="flash-congrats text-white w3-round-xlarge text-center w3-container w3-section w3-animate-fading w3-padding-32">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">
+            ×
+        </span>
+        <img class="w3-round-jumbo" style="padding: 10px 30px 30px 30px; background: {{ var2 }};" src="{{ asset('images/escudo.png') }}" alt="logo">
+            <h2 class="text-congrats">
+                Feliz 
+                {{ 'now'|date("Y")-2009 }}
+                <sup>
+                    {{ cardinales[variable] }}
+                </sup>
+                aniversario de la Contralor&iacute;a General de la Rep&uacute;blica!!!
+            </h2>
+        </div>
+    {% endif %}
+    

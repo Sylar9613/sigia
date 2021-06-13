@@ -1,0 +1,284 @@
+{{ form_start(form) }}
+    {% if form_errors(form.imagen) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.imagen) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.nombres) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombres) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.apellidos) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.apellidos) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.ci) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.ci) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.localidad) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.localidad) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.entidad) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.entidad) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.cargo) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.cargo) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.nivel) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nivel) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.direccion) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.direccion) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.telefono) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.telefono) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.correo) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.correo) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.rna) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.rna) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaRna) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaRna) }}
+        </div>
+    {% endif %}
+    <div class="{{ active_class|default('collapse') }}">{{ form_row(form.activo) }}</div>
+    {{ form_label(form.imagen) }}
+    <button tabindex="2" id="uploadButton" class="btn {#position-absolute #}bg-primary-angular" type="button" onclick="auditor_imagen.click()">Examinar...</button>
+    <span id="span-upload" class="span">Ning&uacute;n archivo seleccionado.</span>
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-image', 'id_span':'span-image'}) }}
+    <div class="collapse">{{ form_widget(form.imagen) }}</div>
+
+    <div class="form-group">
+        <div style="float: right;">
+            {{ form_row(form.apellidos) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-apellidos', 'id_span':'span-apellidos'}) }}
+        </div>
+        {{ form_row(form.nombres) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-nombres', 'id_span':'span-nombres'}) }}
+        <br/>
+        <div style="width: 100%;">
+            <div style="float: right; width: 450px;">
+                {{ form_label(form.correo) }}
+                {{ form_widget(form.correo) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-correo', 'id_span':'span-correo'}) }}
+            </div>
+            {{ form_label(form.ci) }}
+            {{ form_widget(form.ci) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ci', 'id_span':'span-ci'}) }}
+        </div>
+        <br/>
+        <div style="width: 100%;">
+            <div style="float: right; width: 450px;">
+                {{ form_label(form.cargo) }}
+                {{ form_widget(form.cargo) }}
+            </div>
+            {{ form_label(form.entidad) }}
+            {{ form_widget(form.entidad) }}
+        </div>
+        <br/>
+        <div style="width: 100%;">
+            <div style="float: right; width: 450px;">
+                {{ form_label(form.localidad) }}
+                {{ form_widget(form.localidad) }}
+            </div>
+            {{ form_label(form.nivel) }}
+            {{ form_widget(form.nivel) }}
+        </div>
+        <br/>
+        {{ form_label(form.direccion) }}
+        {{ form_widget(form.direccion) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-direccion', 'id_span':'span-direccion'}) }}
+        <br/>
+        <div style="float: right;">
+            <div style="float: right; margin-left: 40px;">
+                {{ form_label(form.telefono) }}
+                {{ form_widget(form.telefono) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-telefono', 'id_span':'span-telefono', 'width':'250px'}) }}
+            </div>
+            {{ form_label(form.fea) }}
+            {{ form_widget(form.fea) }}
+        </div>
+        <div style="width: 60%;">
+            <div style="float: right; width: 230px;">
+                {{ form_label(form.fechaRna) }}
+                {{ form_widget(form.fechaRna) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-fechaRna', 'id_span':'span-fechaRna', 'width':'250px'}) }}
+            </div>
+            {{ form_label(form.rna) }}
+            {{ form_widget(form.rna) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-rna', 'id_span':'span-rna', 'width':'250px'}) }}
+        </div>
+    </div>
+    <br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function mostrarPath() {
+        var auditorPath = auditor_imagen.value.substr(12);
+        var path = /\./g;
+        var last = 0;
+        while (path.test(auditorPath)===true)
+        {
+            last = path.lastIndex;
+        }
+        var validacion = auditorPath.substr(last, auditorPath.length-last);
+        var spanUpload = document.getElementById('span-upload');
+        if (auditorPath===''){
+            spanUpload.innerHTML = "Ningún archivo seleccionado.";
+        }
+        else {
+            spanUpload.innerHTML = auditorPath;
+        }
+        if (validacion === 'jpeg' || validacion === 'jpg' || validacion === 'png' || validacion === 'JPEG' || validacion === 'JPG' || validacion === 'PNG'){
+            $('#req-image').addClass('collapse');
+        }
+        else {
+            var spanImage = document.getElementById('span-image');
+            $('#req-image').removeClass('collapse');
+            spanImage.innerHTML = "El formato del archivo no es correcto (jpg o png)";
+        }
+    }
+
+    function validateFields(input) {
+        if (input === '1'){
+            var spanNombres = document.getElementById('span-nombres');
+            var inputNombres = document.getElementById("auditor_nombres");
+            if (inputNombres.checkValidity() === false) {
+                $('#req-nombres').removeClass('collapse');
+                spanNombres.innerHTML = inputNombres.validationMessage;
+                $('#auditor_nombres:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nombres').addClass('collapse');
+                $('#auditor_nombres').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanApellidos = document.getElementById('span-apellidos');
+            var inputApellidos = document.getElementById("auditor_apellidos");
+            if (inputApellidos.checkValidity() === false) {
+                $('#req-apellidos').removeClass('collapse');
+                spanApellidos.innerHTML = inputApellidos.validationMessage;
+                $('#auditor_apellidos:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-apellidos').addClass('collapse');
+                $('#auditor_apellidos').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanCi = document.getElementById('span-ci');
+            var inputCi = document.getElementById("auditor_ci");
+            if (inputCi.checkValidity() === false) {
+                $('#req-ci').removeClass('collapse');
+                spanCi.innerHTML = inputCi.validationMessage;
+                $('#auditor_ci:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ci').addClass('collapse');
+                $('#auditor_ci').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '4') {
+            var spanCorreo = document.getElementById('span-correo');
+            var inputCorreo = document.getElementById("auditor_correo");
+            if (inputCorreo.checkValidity() === false) {
+                $('#req-correo').removeClass('collapse');
+                spanCorreo.innerHTML = inputCorreo.validationMessage;
+                $('#auditor_correo:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-correo').addClass('collapse');
+                $('#auditor_correo').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '5') {
+            var spanRna = document.getElementById('span-rna');
+            var inputRna = document.getElementById("auditor_rna");
+            if (inputRna.checkValidity() === false) {
+                $('#req-rna').removeClass('collapse');
+                spanRna.innerHTML = inputRna.validationMessage;
+                $('#auditor_rna:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-rna').addClass('collapse');
+                $('#auditor_rna').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '6') {
+            var spanFecha = document.getElementById('span-fechaRna');
+            var inputFecha = document.getElementById("auditor_fechaRna");
+            if (inputFecha.checkValidity() === false) {
+                $('#req-fechaRna').removeClass('collapse');
+                spanFecha.innerHTML = inputFecha.validationMessage;
+                $('#auditor_fechaRna:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fechaRna').addClass('collapse');
+                $('#auditor_fechaRna').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '7') {
+            var spanTelef = document.getElementById('span-telefono');
+            var inputTelef = document.getElementById("auditor_telefono");
+            if (inputTelef.checkValidity() === false) {
+                $('#req-telefono').removeClass('collapse');
+                spanTelef.innerHTML = inputTelef.validationMessage;
+                $('#auditor_telefono:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-telefono').addClass('collapse');
+                $('#auditor_telefono').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '8') {
+            var spanDirec = document.getElementById('span-direccion');
+            var inputDirec = document.getElementById("auditor_direccion");
+            if (inputDirec.checkValidity() === false) {
+                $('#req-direccion').removeClass('collapse');
+                spanDirec.innerHTML = inputDirec.validationMessage;
+                $('#auditor_direccion:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-direccion').addClass('collapse');
+                $('#auditor_direccion').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

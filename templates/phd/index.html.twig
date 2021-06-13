@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PHD{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-primary-angular" href="{{ path('phd_new') }}"><span><i class="fa fa-fw fa-file-o"></i>Nuevo</span></a>
+    {% endif %}
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-accent" href="{{ path('phd_download_pdf') }}"><span><i class="fa fa-fw fa-file-pdf-o"></i>Reporte</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-excel" href="{{ path('phd_to_xls') }}"><span><i class="fa fa-fw fa-file-excel-o"></i>Excel</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <hr/>
+    <form method="post" action="{{ path('phd_filter') }}">
+        <div class="form-group">
+            <button style="margin-top: 28px;" type="submit" class="btn btn-success">
+                <i class="fa fa-fw fa-filter"></i>&nbsp;Filtrar</button>
+            <div style="width: 40%;float: left;">
+                <label><b>Entidades</b></label>
+                <select name="filtrar_ent" class="form-control" style="width: 91%;">
+                    <option value="todas">Todas</option>
+                    {% for a in entidades %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="width: 40%;float: left;">
+                <label><b>Tipos de acciones</b></label>
+                <select name="filtrar_tipo_accion" class="form-control" style="width: 91%;">
+                    <option value="todos">Todos</option>
+                    {% for a in acciones %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </form>
+    <hr/>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Todos los Presuntos Hechos Delictivos (P.H.D.)
+        </div>
+        <div class="card-body">
+            <br/>
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                        <tr class="blue-grey">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Id</th>
+                            {% endif %}
+                            <th>Udad. Organizativa</th>
+                            <th>&numero; Orden</th>
+                            <th>Fecha</th>
+                            <th>&numero; Exp.</th>
+                            <th>&numero; Causa</th>
+                            <th colspan="2" class="text-center">
+                                Da&ntilde;o Econ&oacute;mico<hr style="margin: 8px;"/>
+                                <span style="text-align: left; padding-right: 55px;">CUP</span>
+                                <span>Otras</span>
+                            </th>
+                            <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr class="blue-grey">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Id</th>
+                            {% endif %}
+                            <th>Udad. Organizativa</th>
+                            <th>&numero; Orden</th>
+                            <th>Fecha</th>
+                            <th>&numero; Exp.</th>
+                            <th>&numero; Causa</th>
+                            <th colspan="2" class="text-center">
+                                <span style="text-align: left; padding-right: 55px;">CUP</span>
+                                <span>Otras</span>
+                                <hr style="margin: 8px;"/>
+                                Da&ntilde;o Econ&oacute;mico
+                            </th>
+                            <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for phd in phds if phd.activo==1 or is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('phd_show', { 'id': phd.id }) }}">{{ phd.id }}</a>
+                                </td>
+                                <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>{{ phd.unidadOrganizativa }}</td>
+                            {% else %}
+                                <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('phd_show', { 'id': phd.id }) }}">{{ phd.unidadOrganizativa }}</a>
+                                </td>
+                            {% endif %}
+                            <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>{{ phd.accionControl ? phd.accionControl.ordenTrabajo : '-' }}</td>
+                            <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>{{ phd.fecha ? phd.fecha|date('Y-m-d') : '' }}</td>
+                            <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>{{ phd.numeroExpediente }}</td>
+                            <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>{{ phd.numeroCausa }}</td>
+                            <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>{{ phd.danoEconomicoCup }}</td>
+                            <td{% if phd.activo==0 %} class="admin-disabled" {% endif %}>{{ phd.danoEconomicoOtraMoneda }}</td>
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('phd_show', { 'id': phd.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% if phd.activo==0 %}
+                                        &nbsp;<a class="btn btn-sm bg-primary-angular" href="{{ path('phd_activate', {'id': phd.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                    {% else %}
+                                        &nbsp;<a class="btn btn-sm blue-grey" href="{{ path('phd_edit', { 'id': phd.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No se encontr&oacute; ning&uacute;n registro</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

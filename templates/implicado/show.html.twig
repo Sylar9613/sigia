@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver implicado{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('implicado_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Implicado</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ implicado.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Nombre</th>
+                <td>{{ implicado.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>{{ implicado.sexo=='M' or implicado.sexo=='m' ? 'Masculino' : 'Femenino' }}</td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td>{{ implicado.edad ~ ' años de edad' }}</td>
+            </tr>
+            <tr>
+                <th>Cargo</th>
+                <td>{{ implicado.cargo }}</td>
+            </tr>
+            <tr>
+                <th>Categor&iacute;a ocupacional</th>
+                <td>{{ implicado.categoriaOcupacional }}</td>
+            </tr>
+            <tr>
+                <th>Nivel de escolaridad</th>
+                <td>{{ implicado.escolaridad }}</td>
+            </tr>
+            <tr>
+                <th>Nivel de direcci&oacute;n</th>
+                <td>{{ implicado.nivelDireccion }}</td>
+            </tr>
+            <tr>
+                <th>PCC</th>
+                <td>{{ implicado.pcc ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+            </tr>
+            <tr>
+                <th>UJC</th>
+                <td>{{ implicado.ujc ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and implicado.activo==1 %}
+        <a href="{{ path('implicado_edit', { 'id': implicado.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('implicado/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

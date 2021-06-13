@@ -2,11 +2,275 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>
+            {% block title %}
+                Welcome!
+                            
+            {% endblock %}
+        </title>
+        <link rel="icon" type="image/x-icon" href="{% block icon %}{{ asset('icon/favicon.ico') }}{% endblock %}" />
+        {% block stylesheets %}
+            {{ include('admin/stylesheets.html.twig') }}
+        {% endblock %}
+        {% block otherCSS %}{% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+    <body style="min-width: 432px; min-height: 451px;" onload="myFunction()" class="fixed-nav sticky-footer{% block body_class %} bg-light{% endblock %}" id="page-top">
+        <noscript>
+            Su navegador no soporta Javascript o tiene esta funci&oacute;n desactivada
+                    
+        </noscript>
+        <!--slideshow-->
+        {% block navbar %}
+            {{ include('admin/navbar.html.twig') }}
+        {% endblock %}
+        <div id="loader"></div>
+        <div style="display:none;" id="myDiv" class="animate-bottom">
+            {% block sidenav %}
+                {{ include('admin/sidenav.html.twig') }}
+            {% endblock %}
+            <div style="width: 100%; height: auto;" id="main">
+                <div class="container-fluid">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        {% block footer %}
+            {{ include('admin/footer.html.twig') }}
+        {% endblock %}
+        {% block scroll %}
+            {{ include('admin/scroll.html.twig') }}
+        {% endblock %}
+        {% block infomodal %}
+            {{ include('admin/infomodal.html.twig') }}
+        {% endblock %}
+        {% block logoutmodal %}
+            {{ include('admin/logoutmodal.html.twig') }}
+        {% endblock %}
+        {% block javascripts %}
+            <!-- Bootstrap core JavaScript-->
+            <script src="{{ asset('jquery/jquery.min.js') }}"></script>
+            <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="{{ asset('jquery-easing/jquery.easing.min.js') }}"></script>
+            <!-- Page level plugin JavaScript-->
+            {#<script src="{{ asset('chart.js/Chart.min.js') }}"></script>#}
+            <script src="{{ asset('datatables/jquery.dataTables.js') }}"></script>
+            <script src="{{ asset('datatables/dataTables.bootstrap4.js') }}"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+            <!-- Custom scripts for this page-->
+            <script src="{{ asset('js/sb-admin-datatables.min.js') }}"></script>
+            {#<script src="{{ asset('js/sb-admin-charts.min.js') }}"></script>#}
+        <script src="{{ asset('js/javascript.js') }}"></script>
+        {% endblock %}
+            {% block others_scripts %}
+            <script>
+                var themeSwitcher = document.getElementById('toggleNavColor');
+                var navbar = document.getElementById('mainNav');
+                var sidenav = document.getElementById('mySidenav');
+                var chip = document.getElementById('chip');
+                var info = document.getElementById('info');
+                var user = document.getElementById('user');
+                var logo = document.getElementById('logo');
+
+                console.log(localStorage.getItem('themeName'));
+                if (themeSwitcher) {
+                    if (localStorage.getItem('themeName') === 'dark-theme') {
+                        document.body.classList.remove('bg-light');
+                        document.body.classList.add('bg-dark');
+                        document.body.classList.remove('light-theme');
+                        document.body.classList.add('dark-theme');
+                        navbar.classList.remove('navbar-dark');
+                        navbar.classList.remove('bg-dark-my');
+                        navbar.classList.add('navbar-light');
+                        navbar.classList.add('bg-light-my');
+                        sidenav.classList.remove('bg-dark');
+                        sidenav.classList.add('bg-light');
+                        sidenav.classList.remove('text-secondary');
+                        sidenav.classList.add('text-light');
+                        info.classList.remove('text-light');
+                        info.classList.add('text-secondary');
+                        chip.classList.remove('chip-dark');
+                        chip.classList.add('chip-light');
+                        user.classList.remove('user-light');
+                        user.classList.add('user-dark');
+                        logo.classList.add('text-dark');
+                        if($('.w3-text-theme')){
+                            $('.w3-text-theme').toggleClass('text-dark');
+                            $('.w3-text-theme').toggleClass('w3-text-indigo');
+                        }
+                        if($('.user-input')){
+                            $('.user-input').toggleClass('user-light');
+                            $('.user-input').toggleClass('user-input-dark');
+                        }
+                        if($('.jumbotron')){$('.jumbotron').toggleClass('bg-secondary');}
+                        if($('#dataTable')){$('#dataTable').toggleClass('text-dark');}
+                        if($('table')){$('table').toggleClass('text-white');}
+                        if($('h1')){$('h1').toggleClass('text-white');}
+                        if($('h2')){$('h2').toggleClass('text-white');}
+                        if($('h3')){$('h3').toggleClass('text-white');}
+                        if($('h4')){$('h4').toggleClass('text-white');}
+                        if($('h5')){$('h5').toggleClass('text-dark');}
+                        if($('h6')){$('h6').toggleClass('text-white');}
+                        if($('label')){$('label').toggleClass('text-info');}
+                        if($('p')){$('p').toggleClass('text-white');}
+                        if($('.span')){$('.span').toggleClass('text-white');}
+                        if($('.implicados')){$('.implicados').toggleClass('text-white');}
+                        if($('.responsabilidades')){$('.responsabilidades').toggleClass('text-white');}
+                        /*if($('.hr')){$('.hr').toggleClass('bg-dark bg-white');}*/
+                        //themeSwitcher.innerText = 'Switch to light theme';
+                    }
+
+                    themeSwitcher.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (document.body.classList.contains('dark-theme')) {
+                            document.body.classList.remove('bg-dark');
+                            document.body.classList.add('bg-light');
+                            document.body.classList.remove('dark-theme');
+                            document.body.classList.add('light-theme');
+                            navbar.classList.remove('navbar-light');
+                            navbar.classList.add('navbar-dark');
+                            navbar.classList.remove('bg-light-my');
+                            navbar.classList.add('bg-dark-my');
+                            sidenav.classList.remove('bg-light');
+                            sidenav.classList.add('bg-dark');
+                            sidenav.classList.remove('text-light');
+                            sidenav.classList.add('text-secondary');
+                            info.classList.remove('text-secondary');
+                            info.classList.add('text-light');
+                            chip.classList.remove('chip-light');
+                            chip.classList.add('chip-dark');
+                            user.classList.remove('user-dark');
+                            user.classList.add('user-light');
+                            logo.classList.remove('text-dark');
+                            if($('.w3-text-theme')){
+                                $('.w3-text-theme').toggleClass('w3-text-indigo');
+                                $('.w3-text-theme').toggleClass('text-dark');
+                            }
+                            if($('.user-input')){
+                                $('.user-input').toggleClass('user-input-dark');
+                                $('.user-input').toggleClass('user-light');
+                            }
+                            if($('.jumbotron')){$('.jumbotron').toggleClass('bg-secondary');}
+                            if($('#dataTable')){$('#dataTable').toggleClass('text-dark');}
+                            if($('table')){$('table').toggleClass('text-white');}
+                            if($('h1')){$('h1').toggleClass('text-white');}
+                            if($('h2')){$('h2').toggleClass('text-white');}
+                            if($('h3')){$('h3').toggleClass('text-white');}
+                            if($('h4')){$('h4').toggleClass('text-white');}
+                            if($('h5')){$('h5').toggleClass('text-dark');}
+                            if($('h6')){$('h6').toggleClass('text-white');}
+                            if($('label')){$('label').toggleClass('text-info');}
+                            if($('p')){$('p').toggleClass('text-white');}
+                            if($('.span')){$('.span').toggleClass('text-white');}
+                            localStorage.setItem('themeName', 'light-theme');
+                            if($('.implicados')){$('.implicados').toggleClass('text-white');}
+                            if($('.responsabilidades')){$('.responsabilidades').toggleClass('text-white');}
+
+                            //themeSwitcher.innerText = 'Switch to dark theme';
+                        } else if (document.body.classList.contains('light-theme')) {
+                            /*dark theme*/
+                            document.body.classList.remove('bg-light');
+                            document.body.classList.add('bg-dark');
+                            document.body.classList.remove('light-theme');
+                            document.body.classList.add('dark-theme');
+                            navbar.classList.remove('navbar-dark');
+                            navbar.classList.add('navbar-light');
+                            navbar.classList.remove('bg-dark-my');
+                            navbar.classList.add('bg-light-my');
+                            sidenav.classList.remove('bg-dark');
+                            sidenav.classList.add('bg-light');
+                            sidenav.classList.remove('text-secondary');
+                            sidenav.classList.add('text-light');
+                            info.classList.remove('text-light');
+                            info.classList.add('text-secondary');
+                            chip.classList.remove('chip-dark');
+                            chip.classList.add('chip-light');
+                            user.classList.remove('user-light');
+                            user.classList.add('user-dark');
+                            logo.classList.add('text-dark');
+                            if($('.w3-text-theme')){
+                                $('.w3-text-theme').toggleClass('text-dark');
+                                $('.w3-text-theme').toggleClass('w3-text-indigo');
+                            }
+                            if($('.user-input')){
+                                $('.user-input').toggleClass('user-light');
+                                $('.user-input').toggleClass('user-input-dark');
+                            }
+                            if($('.jumbotron')){$('.jumbotron').toggleClass('bg-secondary');}
+                            if($('#dataTable')){$('#dataTable').toggleClass('text-dark');}
+                            if($('table')){$('table').toggleClass('text-white');}
+                            if($('h1')){$('h1').toggleClass('text-white');}
+                            if($('h2')){$('h2').toggleClass('text-white');}
+                            if($('h3')){$('h3').toggleClass('text-white');}
+                            if($('h4')){$('h4').toggleClass('text-white');}
+                            if($('h5')){$('h5').toggleClass('text-dark');}
+                            if($('h6')){$('h6').toggleClass('text-white');}
+                            if($('label')){$('label').toggleClass('text-info');}
+                            if($('p')){$('p').toggleClass('text-white');}
+                            if($('.span')){$('.span').toggleClass('text-white');}
+                            if($('.implicados')){$('.implicados').toggleClass('text-white');}
+                            if($('.responsabilidades')){$('.responsabilidades').toggleClass('text-white');}
+
+                            localStorage.setItem('themeName', 'dark-theme');
+                            //themeSwitcher.innerText = 'Switch to light theme';
+                        }
+                    });
+                }
+            </script>
+            <script>
+                document.body.classList.add(
+                    localStorage.getItem('themeName')
+                    || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark-theme' : 'light-theme')
+                );
+            </script>
+            <script>
+                if (document.body.offsetWidth < 1000){
+                    $('#menu_lateral').hide();
+                }
+                if (document.body.offsetWidth < 1092 && document.body.offsetWidth > 991){
+                    $('.names').hide();
+                }
+            </script>
+            <script src="{{ asset('js/add-collection-widget.js') }}">
+            </script>
+        <script src="{{ asset('js/dropdown-menu.js') }}">
+            </script>
+        <!-- Toggle between dark and light navbar-->
+    {#<script>
+                                                                                                    {% if app.session.get('tema')=='black' %}
+                                                                                                    $('#info').toggleClass('text-light');
+                                                                                                    $('nav').toggleClass('navbar-light');
+                                                                                                    $('nav').toggleClass('bg-light');
+                                                                                                    $('body').toggleClass('bg-light');
+                                                                                                    {% else %}
+                                                                                                    $('#info').toggleClass('text-secondary');
+                                                                                                    $('#user').toggleClass('user-light user-dark');
+                                                                                                    $('nav').toggleClass('navbar-dark navbar-light');
+                                                                                                    $('nav').toggleClass('bg-dark bg-light');
+                                                                                                    $('body').toggleClass('bg-dark bg-light');
+                                                                                                    $('#mySidenav').toggleClass('text-light text-dark');
+                                                                                                    $('.chip').toggleClass('chip-dark chip-light');
+                                                                                                    $('.jumbotron').toggleClass('bg-secondary');
+                                                                                                    $('.logo').toggleClass('text-dark');
+                                                                                                    $('.w3-text-theme').toggleClass('text-dark w3-text-indigo');
+                                                                                                    $('.implicados').toggleClass('text-white');
+                                                                                                    $('.responsabilidades').toggleClass('text-white');
+                                                                                                    $('#dataTable').toggleClass('text-dark');
+                                                                                                    $('table').toggleClass('text-white');
+                                                                                                    $('.hr').toggleClass('bg-dark bg-white');
+                                                                                                    $('h1').toggleClass('text-white');
+                                                                                                    $('h2').toggleClass('text-white');
+                                                                                                    $('h3').toggleClass('text-white');
+                                                                                                    $('h4').toggleClass('text-white');
+                                                                                                    $('h5').toggleClass('text-dark');
+                                                                                                    $('h6').toggleClass('text-white');
+                                                                                                    $('.span').toggleClass('text-white');
+                                                                                                    $('p').toggleClass('text-white');
+                                                                                                    $('label').toggleClass('text-info');
+                                                                                                    {% endif %}
+                                                                                                </script>#}
+{% endblock %}
+</body></html>

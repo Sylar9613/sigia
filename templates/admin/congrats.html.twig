@@ -1,0 +1,8 @@
+{% if 'now'|date("d")==10 and 'now'|date("m")==08 %}
+    {% set cardinales = ['er','do','er','to','to','to','mo','vo','no','mo'] %}
+    {% set variable = 'now'|date("Y")-2009-10+1 %}
+    <div style="background-color: #3B5998;" class="text-white w3-round-jumbo text-center w3-container w3-section w3-animate-opacity w3-padding-32">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">X</span>
+        <h3>Felicidades por el {{ 'now'|date("Y")-2009 }}<sup>{{ cardinales[variable] }}</sup> aniversario de la Contralor&iacute;a General de la Rep&uacute;blica!!!</h3>
+    </div>
+{% endif %}

@@ -1,0 +1,11 @@
+{# read and display just one flash message type #}
+{% for message in app.flashes('notice') %}
+    {#<div class="w3-container w3-section w3-green w3-animate-opacity flash-notice">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">X</span>
+        <h3>Success!</h3>#}
+    <div class="alert alert-success fade in flash-notice">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <img src="{{ asset('images/accept.gif') }}">
+        <strong> Success!</strong>&nbsp;{{ message }}&nbsp;&nbsp;
+    </div>
+{% endfor %}

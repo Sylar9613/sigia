@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver {{ causa_condicion.nombre }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('causa_condicion_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Causa&nbsp;&frasl;&nbsp;Condici&oacute;n {{ causa_condicion.nombre }}</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ causa_condicion.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Nombre</th>
+                <td>{{ causa_condicion.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and causa_condicion.activo==1 %}
+        <a href="{{ path('causa_condicion_edit', { 'id': causa_condicion.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('causa_condicion/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

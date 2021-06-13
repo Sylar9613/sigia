@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear nuevo auditor{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('auditor_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h1>Registrar un auditor</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('auditor/_form.html.twig') }}
+    <button style="margin-top: 8px;" onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+    {# read and display just one flash message type #}{#
+    {% for message in app.flashes('error') %}
+        <div class="w3-container w3-section w3-red w3-animate-opacity flash-notice">
+            <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">X</span>
+            <h3>Error!</h3>
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}#}
+{% endblock %}

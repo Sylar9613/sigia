@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo usuario{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('user_index') }}">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    <h1>Crear nuevo usuario</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('user/_form.html.twig') }}
+{% endblock %}

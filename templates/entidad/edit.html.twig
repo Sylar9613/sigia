@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar {{ entidad.nombre }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('entidad_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h1>Editar entidad</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('entidad/_form.html.twig', {'button_label': 'Actualizar', 'button_class': 'btn-warning', 'button_fa': 'fa-refresh'}) }}
+
+    {{ include('entidad/_delete_form.html.twig') }}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

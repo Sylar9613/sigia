@@ -1,0 +1,186 @@
+{{ form_start(form) }}
+    {% if form_errors(form.numero) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.numero) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.categoria) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.categoria) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.provincia) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.provincia) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fuente) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fuente) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaDeteccion) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaDeteccion) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaOcurrencia) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaOcurrencia) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.resumen) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.resumen) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <br/>
+    <div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.provincia) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-prov', 'id_span':'span-prov', 'width':'260px;'}) }}
+        </div>
+        <div class="float-right" style="margin-right: 40px;">
+            {{ form_row(form.categoria) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-cat', 'id_span':'span-cat'}) }}
+        </div>
+        {{ form_row(form.numero) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-numero', 'id_span':'span-numero', 'width':'210px;'}) }}
+    </div>
+    <br/>
+    <div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.fechaOcurrencia) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ocu', 'id_span':'span-ocu', 'width':'220px;'}) }}
+        </div>
+        <div class="float-right" style="margin-right: 30px;">
+            {{ form_row(form.fechaDeteccion) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-det', 'id_span':'span-det', 'width':'220px;'}) }}
+        </div>
+        {{ form_row(form.fuente) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-fuente', 'id_span':'span-fuente'}) }}
+    </div>
+    <br/>
+    <div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.accionControl) }}
+        </div>
+        <div class="float-right" style="margin-right: 30px;">
+            {{ form_row(form.municipio) }}
+        </div>
+        {{ form_row(form.entidad) }}
+    </div>
+    <br/>
+    {{ form_row(form.resumen) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-resumen', 'id_span':'span-resumen'}) }}
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanNumero = document.getElementById('span-numero');
+            var inputNumero = document.getElementById("phc_numero");
+            if (inputNumero.checkValidity() === false) {
+                $('#req-numero').removeClass('collapse');
+                spanNumero.innerHTML = inputNumero.validationMessage;
+                $('#phc_numero:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-numero').addClass('collapse');
+                $('#phc_numero').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanCat = document.getElementById('span-cat');
+            var inputCat = document.getElementById("phc_categoria");
+            if (inputCat.checkValidity() === false) {
+                $('#req-cat').removeClass('collapse');
+                spanCat.innerHTML = inputCat.validationMessage;
+                $('#phc_categoria:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cat').addClass('collapse');
+                $('#phc_categoria').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanProv = document.getElementById('span-prov');
+            var inputProv = document.getElementById("phc_provincia");
+            if (inputProv.checkValidity() === false) {
+                $('#req-prov').removeClass('collapse');
+                spanProv.innerHTML = inputProv.validationMessage;
+                $('#phc_provincia:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-prov').addClass('collapse');
+                $('#phc_provincia').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '4'){
+            var spanFuente = document.getElementById('span-fuente');
+            var inputFuente = document.getElementById("phc_fuente");
+            if (inputFuente.checkValidity() === false) {
+                $('#req-fuente').removeClass('collapse');
+                spanFuente.innerHTML = inputFuente.validationMessage;
+                $('#phc_fuente:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fuente').addClass('collapse');
+                $('#phc_fuente').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '5'){
+            var spanDet = document.getElementById('span-det');
+            var inputDet = document.getElementById("phc_fechaDeteccion");
+            if (inputDet.checkValidity() === false) {
+                $('#req-det').removeClass('collapse');
+                spanDet.innerHTML = inputDet.validationMessage;
+                $('#phc_fechaDeteccion:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-det').addClass('collapse');
+                $('#phc_fechaDeteccion').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '6'){
+            var spanOcu = document.getElementById('span-ocu');
+            var inputOcu = document.getElementById("phc_fechaOcurrencia");
+            if (inputOcu.checkValidity() === false) {
+                $('#req-ocu').removeClass('collapse');
+                spanOcu.innerHTML = inputOcu.validationMessage;
+                $('#phc_fechaOcurrencia:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ocu').addClass('collapse');
+                $('#phc_fechaOcurrencia').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '9'){
+            var spanResumen = document.getElementById('span-resumen');
+            var inputResumen = document.getElementById("phc_resumen");
+            if (inputResumen.checkValidity() === false) {
+                $('#req-resumen').removeClass('collapse');
+                spanResumen.innerHTML = inputResumen.validationMessage;
+                $('#phc_resumen:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-resumen').addClass('collapse');
+                $('#phc_resumen').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

@@ -1,0 +1,87 @@
+{{ form_start(form) }}
+    {% if form_errors(form.nombre) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.nit) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nit) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.reeup) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.reeup) }}
+        </div>
+    {% endif %}
+    <div class="float-right">
+        {{ form_row(form.nit) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-nit', 'id_span':'span-nit'}) }}
+    </div>
+    {{ form_row(form.nombre) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-nombre', 'id_span':'span-nombre'}) }}
+    <br/>
+    <div class="float-right">
+        {{ form_row(form.osde) }}
+    </div>
+    {{ form_row(form.reeup) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-reeup', 'id_span':'span-reeup'}) }}
+    <br/>
+    <div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.ucai) }}
+        </div>
+        <div class="float-right" style="margin-right: 90px;">
+            {{ form_row(form.uai) }}
+        </div>
+        {{ form_row(form.ai) }}
+    </div>
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanNombre = document.getElementById('span-nombre');
+            var inputNombre = document.getElementById("entidad_nombre");
+            if (inputNombre.checkValidity() === false) {
+                $('#req-nombre').removeClass('collapse');
+                spanNombre.innerHTML = inputNombre.validationMessage;
+                $('#entidad_nombre:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nombre').addClass('collapse');
+                $('#entidad_nombre').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanNit = document.getElementById('span-nit');
+            var inputNit = document.getElementById("entidad_nit");
+            if (inputNit.checkValidity() === false) {
+                $('#req-nit').removeClass('collapse');
+                spanNit.innerHTML = inputNit.validationMessage;
+                $('#entidad_nit:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nit').addClass('collapse');
+                $('#entidad_nit').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanReeup = document.getElementById('span-reeup');
+            var inputReeup = document.getElementById("entidad_reeup");
+            if (inputReeup.checkValidity() === false) {
+                $('#req-reeup').removeClass('collapse');
+                spanReeup.innerHTML = inputReeup.validationMessage;
+                $('#entidad_reeup:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-reeup').addClass('collapse');
+                $('#entidad_reeup').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

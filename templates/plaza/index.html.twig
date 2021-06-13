@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plazas{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-primary-angular" href="{{ path('plaza_new') }}"><span><i class="fa fa-fw fa-file-o"></i>Nueva</span></a>
+    {% endif %}
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <label style="float: right">Plazas: Aprobadas <span class="badge badge-primary badge-pill">{{ aprob }}</span> Cubiertas <span class="badge badge-success badge-pill">{{ cub }}</span> % <span class="badge badge-danger badge-pill">{{ (cub/aprob*100)|round(2) }}</span></label>
+    <hr/>
+    <form method="post" action="{{ path('plaza_filter') }}">
+        <div class="form-group">
+            <button style="margin-top: 28px;" type="submit" class="btn btn-success">
+                <i class="fa fa-fw fa-filter"></i>&nbsp;Filtrar</button>
+            <div style="width: 40%;float: left;">
+                <label><b>Entidades</b></label>
+                <select name="filtrar_ent" class="form-control" style="width: 91%;">
+                    <option value="todas">Todas</option>
+                    {% for a in entidades %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="width: 40%;float: left;">
+                <label><b>Cargos</b></label>
+                <select name="filtrar_car" class="form-control" style="width: 91%;">
+                    <option value="todos">Todos</option>
+                    {% for a in cargos %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </form>
+    <hr/>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Todas las plazas
+        </div>
+        <div class="card-body">
+            <br/>
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table {#table-bordered table-striped #}table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                    <tr class="blue-grey">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Id</th>
+                        {% endif %}
+                        <th>Cantidad de plazas</th>
+                        <th>Entidad</th>
+                        <th>Cargo</th>
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr class="blue-grey">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Id</th>
+                        {% endif %}
+                        <th>Cantidad de plazas</th>
+                        <th>Entidad</th>
+                        <th>Cargo</th>
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for plaza in plazas if plaza.activo==1 or is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td{% if plaza.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('plaza_show', { 'id': plaza.id }) }}">{{ plaza.id }}</a>
+                                </td>
+                                <td{% if plaza.activo==0 %} class="admin-disabled" {% endif %}>{{ plaza.plazas }}</td>
+                            {% else %}
+                                <td{% if plaza.activo==0 %} class="admin-disabled" {% endif %}><a href="{{ path('plaza_show', { 'id': plaza.id }) }}">{{ plaza.plazas }}</a></td>
+                            {% endif %}
+                            <td{% if plaza.activo==0 %} class="admin-disabled" {% endif %}>{{ plaza.entidad.nombre }}</td>
+                            <td{% if plaza.activo==0 %} class="admin-disabled" {% endif %}>{{ plaza.cargo.nombre }}</td>
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('plaza_show', { 'id': plaza.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% if plaza.activo==0 %}
+                                        &nbsp;<a class="btn btn-sm bg-primary-angular" href="{{ path('plaza_activate', {'id': plaza.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                    {% else %}
+                                        &nbsp;<a class="btn btn-sm blue-grey" href="{{ path('plaza_edit', { 'id': plaza.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No se encontr&oacute; ning&uacute;n registro</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuario{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li class="breadcrumb-item">
+                <a class="normal" href="{{ path('user_index') }}">{{ routes[0] }}</a>
+            </li>
+        {% else %}
+            <li class="breadcrumb-item">{{ routes[0] }}</li>
+        {% endif %}
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    <h1>Usuario</h1>
+
+    <table class="table table-hover">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ user.id }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Roles</th>
+            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>{{ user.password }}</td>
+        </tr>
+        <tr>
+            <th>Activo</th>
+            <td>{{ user.isActive ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% if user.id==app.user.id %}
+        <a href="{{ path('change_password', { 'id': user.id }) }}"
+           class="btn bg-primary-angular btn-block"><i class="fa fa-fw fa-user-secret"></i>&nbsp;Cambiar contrase&ntilde;a</a>
+        <a href="{{ path('user_edit', { 'id': user.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+    {% endif %}
+    {% if is_granted('ROLE_SUPER_ADMIN') and user.id!=app.user.id and user.isActive==1 %}
+        <a href="{{ path('change_rol', { 'id': user.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Cambiar roles</a>
+        {{ include('user/_delete_form.html.twig') }}
+    {% endif %}
+    <a onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</a>
+
+{% endblock %}

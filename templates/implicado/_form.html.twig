@@ -1,0 +1,162 @@
+{{ form_start(form) }}
+    {% if form_errors(form.nombre) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.sexo) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.sexo) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.edad) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.edad) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.cargo) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.cargo) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.categoriaOcupacional) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.categoriaOcupacional) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.escolaridad) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.escolaridad) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.nivelDireccion) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nivelDireccion) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    {{ form_row(form.cargo) }}
+    <div class="float-right" style="margin-top: 65px;">{{ include('admin/validation_js.html.twig', {'id_req':'req-cargo', 'id_span':'span-cargo'}) }}</div>
+    {{ form_row(form.nombre) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-nombre', 'id_span':'span-nombre'}) }}
+    {{ form_row(form.categoriaOcupacional) }}
+    <div class="float-right" style="margin-top: 85px;">{{ include('admin/validation_js.html.twig', {'id_req':'req-cat', 'id_span':'span-cat'}) }}</div>
+    {{ form_row(form.escolaridad) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-esc', 'id_span':'span-esc'}) }}
+    {{ form_row(form.edad) }}
+    <div class="float-right" style="margin-top: 85px;">{{ include('admin/validation_js.html.twig', {'id_req':'req-edad', 'id_span':'span-edad', 'width':'200px;'}) }}</div>
+    {{ form_row(form.sexo) }}
+    <div class="float-right" style="margin-top: 85px;">{{ include('admin/validation_js.html.twig', {'id_req':'req-sexo', 'id_span':'span-sexo', 'width':'200px;'}) }}</div>
+    {{ form_row(form.nivelDireccion) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-dir', 'id_span':'span-dir'}) }}
+    {{ form_row(form.pcc) }}{{ form_row(form.ujc) }}
+    <br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanNombre = document.getElementById('span-nombre');
+            var inputNombre = document.getElementById("implicado_nombre");
+            if (inputNombre.checkValidity() === false) {
+                $('#req-nombre').removeClass('collapse');
+                spanNombre.innerHTML = inputNombre.validationMessage;
+                $('#implicado_nombre:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nombre').addClass('collapse');
+                $('#implicado_nombre').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanCargo = document.getElementById('span-cargo');
+            var inputCargo = document.getElementById("implicado_cargo");
+            if (inputCargo.checkValidity() === false) {
+                $('#req-cargo').removeClass('collapse');
+                spanCargo.innerHTML = inputCargo.validationMessage;
+                $('#implicado_cargo:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cargo').addClass('collapse');
+                $('#implicado_cargo').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanEsc = document.getElementById('span-esc');
+            var inputEsc = document.getElementById("implicado_escolaridad");
+            if (inputEsc.checkValidity() === false) {
+                $('#req-esc').removeClass('collapse');
+                spanEsc.innerHTML = inputEsc.validationMessage;
+                $('#implicado_escolaridad:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-esc').addClass('collapse');
+                $('#implicado_escolaridad').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '4'){
+            var spanCat = document.getElementById('span-cat');
+            var inputCat = document.getElementById("implicado_categoriaOcupacional");
+            if (inputCat.checkValidity() === false) {
+                $('#req-cat').removeClass('collapse');
+                spanCat.innerHTML = inputCat.validationMessage;
+                $('#implicado_categoriaOcupacional:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cat').addClass('collapse');
+                $('#implicado_categoriaOcupacional').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '5'){
+            var spanDir = document.getElementById('span-dir');
+            var inputDir = document.getElementById("implicado_nivelDireccion");
+            if (inputDir.checkValidity() === false) {
+                $('#req-dir').removeClass('collapse');
+                spanDir.innerHTML = inputDir.validationMessage;
+                $('#implicado_nivelDireccion:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-dir').addClass('collapse');
+                $('#implicado_nivelDireccion').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '6'){
+            var spanSexo = document.getElementById('span-sexo');
+            var inputSexo = document.getElementById("implicado_sexo");
+            if (inputSexo.checkValidity() === false) {
+                $('#req-sexo').removeClass('collapse');
+                spanSexo.innerHTML = inputSexo.validationMessage;
+                $('#implicado_sexo:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-sexo').addClass('collapse');
+                $('#implicado_sexo').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '7'){
+            var spanEdad = document.getElementById('span-edad');
+            var inputEdad = document.getElementById("implicado_edad");
+            if (inputEdad.checkValidity() === false) {
+                $('#req-edad').removeClass('collapse');
+                spanEdad.innerHTML = inputEdad.validationMessage;
+                $('#implicado_edad:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-edad').addClass('collapse');
+                $('#implicado_edad').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

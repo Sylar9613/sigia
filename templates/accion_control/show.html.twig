@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver acci&oacute;n a la entidad {{ accion_control.entidad.nombre }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('accion_control_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Acci&oacute;n de control a la entidad {{ accion_control.entidad.nombre }}</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ accion_control.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Orden de trabajo</th>
+                <td>{{ accion_control.ordenTrabajo }}</td>
+            </tr>
+            <tr>
+                <th>Entidad</th>
+                <td>{{ accion_control.entidad.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Directivas</th>
+                <td>{{ accion_control.directivas }}</td>
+            </tr>
+            <tr>
+                <th>Situaci&oacute;n del combustible</th>
+                <td>{{ accion_control.combustible.evaluacion }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de P.H.D. detectados</th>
+                <td>{{ accion_control.phds|length }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de P.H.C. detectados</th>
+                <td>{{ accion_control.phcs|length }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de hechos de corrupci&oacute;n detectados</th>
+                <td>{{ accion_control.hc|length }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de auditores &lopar;plan&rpar;</th>
+                <td>{{ accion_control.auditorPlan }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de auditores &lpar;real&rpar;</th>
+                <td>{{ accion_control.auditorReal }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de d&iacute;as &lpar;plan&rpar;</th>
+                <td>{{ accion_control.diasPlan }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de d&iacute;as &lpar;real&rpar;</th>
+                <td>{{ accion_control.diasReal }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de auditores&nbsp;&frasl;&nbsp;d&iacute;a &lpar;plan&rpar;</th>
+                <td>{{ accion_control.auditorXDiaPlan }}</td>
+            </tr>
+            <tr>
+                <th>Cantidad de auditor&nbsp;&frasl;&nbsp;d&iacute;a &lpar;real&rpar;</th>
+                <td>{{ accion_control.auditorXDiaReal }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de inicio &lpar;plan&rpar;</th>
+                <td>{{ accion_control.fechaInicioPlan ? accion_control.fechaInicioPlan|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha final &lpar;plan&rpar;</th>
+                <td>{{ accion_control.fechaFinPlan ? accion_control.fechaFinPlan|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de inicio &lpar;real&rpar;</th>
+                <td>{{ accion_control.fechaInicioReal ? accion_control.fechaInicioReal|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha final &lpar;real&rpar;</th>
+                <td>{{ accion_control.fechaFinReal ? accion_control.fechaFinReal|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Calificaci&oacute;n</th>
+                <td>{{ accion_control.calificacion }}</td>
+            </tr>
+            <tr>
+                <th>Da&ntilde;os en CUP</th>
+                <td>{{ accion_control.danoCUP }}</td>
+            </tr>
+            <tr>
+                <th>Da&ntilde;os en CUC</th>
+                <td>{{ accion_control.danoCUC }}</td>
+            </tr>
+            <tr>
+                <th>Da&ntilde;os en otras monedas</th>
+                <td>{{ accion_control.danoOtraMoneda }}</td>
+            </tr>
+            <tr>
+                <th>Control de entrega de los planes de medidas</th>
+                <td>{{ accion_control.planMedidas ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and accion_control.activo==1 %}
+        <a href="{{ path('accion_control_edit', { 'id': accion_control.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('accion_control/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

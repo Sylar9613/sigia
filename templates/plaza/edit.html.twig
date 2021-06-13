@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar plazas de {{ plaza.entidad.nombre }} en el cargo {{ plaza.cargo.nombre }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('plaza_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h3>Editar las plazas de la {{ plaza.entidad.nombre }} en el cargo {{ plaza.cargo.nombre }}</h3>
+
+    {{ include('admin/errors.html.twig') }}
+    {{ include('plaza/_form.html.twig', {'button_label': 'Actualizar', 'button_class': 'btn-warning', 'button_fa': 'fa-refresh'}) }}
+
+    {{ include('plaza/_delete_form.html.twig') }}
+
+    <a class="btn btn-secondary btn-block" href="{{ path('plaza_index') }}">Regresar</a>
+
+{% endblock %}

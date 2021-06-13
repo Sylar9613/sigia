@@ -1,0 +1,48 @@
+{{ form_start(form) }}
+    {% if form_errors(form.evaluacion) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.evaluacion) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <div class="form-group">
+        <div style="float: right;">
+            <div style="float: right; margin-right: 80px;">
+                {{ form_label(form.danoEconomicoOtraMoneda) }}
+                {{ form_widget(form.danoEconomicoOtraMoneda) }}
+            </div>
+            <div style="margin-right: 400px;">
+                {{ form_label(form.danoEconomicoCup) }}
+                {{ form_widget(form.danoEconomicoCup) }}
+            </div>
+        </div>
+        <div style="width: 300px;">
+            {{ form_label(form.evaluacion) }}
+            {{ form_widget(form.evaluacion) }}
+        </div>
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-evaluacion', 'id_span':'span-evaluacion', 'width':'280px'}) }}
+    </div>
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields() {
+        var spanEval = document.getElementById('span-evaluacion');
+        var inputEval = document.getElementById("combustible_evaluacion");
+        if (inputEval.checkValidity() === false) {
+            $('#req-evaluacion').removeClass('collapse');
+            spanEval.innerHTML = inputEval.validationMessage;
+            $('#combustible_evaluacion:invalid').css("border", "1px solid #dc3545");
+        }
+        else {
+            $('#req-evaluacion').addClass('collapse');
+            $('#combustible_evaluacion').css("border", "1px solid #ced4da");
+        }
+    }
+</script>

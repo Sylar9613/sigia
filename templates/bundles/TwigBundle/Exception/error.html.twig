@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Se ha producido un error{% block title %}{% endblock %}</title>
+        <link rel="icon" type="image/x-icon" href="{% block icon %}{{ asset('images/error.png') }}{% endblock %}" />
+        {% block stylesheets %}
+            <!-- Bootstrap core CSS-->
+            <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+            <!-- Custom fonts for this template-->
+            <link href="{{ asset('font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+            <!-- Page level plugin CSS-->
+            <link href="{{ asset('datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
+            <!-- Custom styles for this template-->
+            <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
+            <!-- Customizes styles-->
+            <link href="{{ asset('css/jquery.mobile-1.4.5.min.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/w3.css') }}" rel="stylesheet">
+            <link href="{{ asset('css/my_css.css') }}" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body {% block style_body %}style="background-color: darkred;"{% endblock %}onload="myFunction()" class="sticky-footer">
+        <noscript>Su navegador no soporta Javascript o tiene esta funci&oacute;n desactivada</noscript>
+        <div id="loader"></div>
+        <div style="display:none;" id="myDiv" class="animate-bottom">
+            <div style="width: 100%; height: auto;" id="main-2">
+                {% block body %}{% endblock %}
+            </div>
+        </div>
+        {% block footer %}
+            <footer class="sticky-footer">
+                <div class="container">
+                    <div class="text-center">
+                        <small>Copyright © Contralor&iacute;a Provincial Matanzas 2019 - {{ 'now'|date("Y") }}</small>
+                    </div>
+                </div>
+            </footer>
+        {% endblock %}
+        {% block javascripts %}
+            <!-- Bootstrap core JavaScript-->
+            <script src="{{ asset('jquery/jquery.min.js') }}"></script>
+            <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="{{ asset('jquery-easing/jquery.easing.min.js') }}"></script>
+            <!-- Page level plugin JavaScript-->
+            <script src="{{ asset('chart.js/Chart.min.js') }}"></script>
+            <script src="{{ asset('datatables/jquery.dataTables.js') }}"></script>
+            <script src="{{ asset('datatables/dataTables.bootstrap4.js') }}"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+            <!-- Custom scripts for this page-->
+            <script src="{{ asset('js/sb-admin-datatables.min.js') }}"></script>
+            <script src="{{ asset('js/sb-admin-charts.min.js') }}"></script>
+            <script src="{{ asset('js/jquery-1.11.3.min.js') }}"></script>{#
+                <script src="{{ asset('js/jquery.mobile-1.4.5.min.js') }}"></script>#}
+            <script src="{{ asset('js/javascript.js') }}"></script>
+        {% endblock %}
+    </body>
+</html>

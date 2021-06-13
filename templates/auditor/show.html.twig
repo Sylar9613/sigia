@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver {{ auditor.nombres }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('auditor_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h1>Auditor</h1>
+    {{ include('admin/errors.html.twig') }}
+    <img src="
+        {% if auditor.imagen %}
+            {#{{ asset('uploads/images/' ~ auditor.imagen.fileName) }}#}
+            {{ asset('uploads/images/' ~ auditor.imagen) }}
+        {% else %}
+            {% if auditor.getSexo()=='M' %}
+                {{ asset('images/avatar2.png') }}
+            {% else %}
+                {{ asset('images/avatar4.png') }}
+            {% endif %}
+        {% endif %}" alt="Foto" width="96" height="96">
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ auditor.id }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <th>Activo</th>
+            <td>{{ auditor.activo ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ auditor.nombres }}</td>
+        </tr>
+        <tr>
+            <th>Apellidos</th>
+            <td>{{ auditor.apellidos }}</td>
+        </tr>
+        <tr>
+            <th>CI</th>
+            <td>{{ auditor.ci }}</td>
+        </tr>
+        <tr>
+            <th>Direcci&oacute;n</th>
+            <td>{{ auditor.direccion }}</td>
+        </tr>
+        <tr>
+            <th>Tel&eacute;fono</th>
+            <td>{{ auditor.telefono }}</td>
+        </tr>
+        <tr>
+            <th>Correo</th>
+            <td>{{ auditor.correo }}</td>
+        </tr>
+        <tr>
+            <th>Formaci&oacute;n Emergente de Auditores (F.E.A.)</th>
+            <td>{{ auditor.fea ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+        </tr>
+        <tr>
+            <th>Registro Nacional de Auditores (R.N.A.)</th>
+            <td>{{ auditor.rna }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de inscripci&oacute;n en el R.N.A.</th>
+            <td>{{ auditor.fechaRna ? auditor.fechaRna|date('Y-m-d') : '' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and auditor.activo==1 %}
+        <a href="{{ path('auditor_edit', { 'id': auditor.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('auditor/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

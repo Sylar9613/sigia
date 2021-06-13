@@ -1,0 +1,224 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Acciones de control{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-primary-angular" href="{{ path('accion_control_new') }}"><span><i class="fa fa-fw fa-file-o"></i>Nueva</span></a>
+    {% endif %}
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn text-white button bg-accent" data-toggle="modal" data-target="#downloadModal"><span><i class="fa fa-fw fa-file-pdf-o"></i>Reporte</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-excel" href="{{ path('ac_to_xls') }}"><span><i class="fa fa-fw fa-file-excel-o"></i>Excel</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <hr/>
+    <form method="post" action="{{ path('accion_control_filter') }}">
+        <div class="form-group">
+            <button style="margin-top: 28px;" type="submit" class="btn btn-success">
+                <i class="fa fa-fw fa-filter"></i>&nbsp;Filtrar</button>
+            <div style="width: 40%;float: left;">
+                <label><b>Entidades</b></label>
+                <select name="filtrar_ent" class="form-control" style="width: 91%;">
+                    <option value="todas">Todas</option>
+                    {% for a in entidades %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="width: 40%;float: left;">
+                <label><b>Tipos de acciones</b></label>
+                <select name="filtrar_tipo_accion" class="form-control" style="width: 91%;">
+                    <option value="todos">Todos</option>
+                    {% for a in acciones %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </form>
+    <hr/>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Acciones de control
+        </div>
+        <div class="card-body">
+            <br/>
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                        <tr class="blue-grey">
+                            <th rowspan="2" title="Número de Orden de trabajo">&numero; Orden</th>
+                            <th rowspan="2" title="Cantidad de P.H.D. detectados">P.H.D.</th>
+                            <th rowspan="2" title="Cantidad de P.H.C. detectados">P.H.C.</th>
+                            <th rowspan="2" title="Cantidad de hechos de corrupción detectados">H.C.</th>
+                            <th colspan="2" class="text-center">
+                                Cant. auditores<hr style="margin: 8px;"/>
+                                <span style="margin-right: 20px; font-size: 12px;" title="Cantidad de auditores (plan)">&lpar;P&rpar;</span>
+                                <span style="font-size: 12px;" title="Cantidad de auditores (real)">&lpar;R&rpar;</span>
+                            </th>
+                            <th colspan="2" class="text-center">
+                                Cant. d&iacute;as h&aacute;biles<hr style="margin: 8px;"/>
+                                <span style="margin-right: 15px; font-size: 12px;" title="Cantidad de días (plan)">&lpar;P&rpar;</span>
+                                <span style="font-size: 12px;" title="Cantidad de días (real)">&lpar;R&rpar;</span>
+                            </th>
+                            <th colspan="2" class="text-center">
+                                Cant. auditores&nbsp;&frasl;&nbsp;d&iacute;a<hr style="margin: 8px;"/>
+                                <span style="margin-right: 20px; font-size: 12px;" title="Cantidad de auditores por día (plan)">&lpar;P&rpar;</span>
+                                <span style="font-size: 12px;" title="Cantidad de auditores por día (real)">&lpar;R&rpar;</span>
+                            </th>
+                            <th rowspan="2" title="Fecha de incio (plan)">F. inicio&lpar;P&rpar;</th>
+                            <th rowspan="2" title="Fecha de final (plan)">F. fin&lpar;P&rpar;</th>
+                            <th rowspan="2" title="Calificación">Calif.</th>
+                            <th rowspan="2" title="Control de entrega de los planes de medidas">P.M.</th>
+                            <th rowspan="2" ><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr class="blue-grey">
+                            <th title="Número de Orden de trabajo">&numero; Orden</th>
+                            <th title="Cantidad de P.H.D. detectados">P.H.D.</th>
+                            <th title="Cantidad de P.H.C. detectados">P.H.C.</th>
+                            <th title="Cantidad de hechos de corrupción detectados">H.C.</th>
+                            <th colspan="2" class="text-center">
+                                <span style="margin-right: 20px; font-size: 12px;" title="Cantidad de auditores (plan)">&lpar;P&rpar;</span>
+                                <span style="font-size: 12px;" title="Cantidad de auditores (real)">&lpar;R&rpar;</span>
+                                <hr style="margin: 8px;"/>Cant. auditores
+                            </th>
+                            <th colspan="2" class="text-center">
+                                <span style="margin-right: 15px; font-size: 12px;" title="Cantidad de días (plan)">&lpar;P&rpar;</span>
+                                <span style="font-size: 12px;" title="Cantidad de días (real)">&lpar;R&rpar;</span>
+                                <hr style="margin: 8px;"/>Cant. d&iacute;as h&aacute;biles
+                            </th>
+                            <th colspan="2" class="text-center">
+                                <span style="margin-right: 20px; font-size: 12px;" title="Cantidad de auditores por día (plan)">&lpar;P&rpar;</span>
+                                <span style="font-size: 12px;" title="Cantidad de auditores por día (real)">&lpar;R&rpar;</span>
+                                <hr style="margin: 8px;"/>Cant. auditores&nbsp;&frasl;&nbsp;d&iacute;a
+                            </th>
+                            <th title="Fecha de incio (plan)">F. inicio&lpar;P&rpar;</th>
+                            <th title="Fecha de final (plan)">F. fin&lpar;P&rpar;</th>
+                            <th title="Calificación">Calif.</th>
+                            <th title="Control de entrega de los planes de medidas">P.M.</th>
+                            <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for accion_control in accion_controls if accion_control.activo==1 or is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>
+                                <a href="{{ path('accion_control_show', { 'id': accion_control.id }) }}">{{ accion_control.ordenTrabajo }}</a>
+                            </td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.phds|length }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.phcs|length }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.hcs }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.auditorPlan }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.auditorReal ? accion_control.auditorReal : '-' }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.diasPlan }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.diasReal ? accion_control.diasReal : '-' }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.auditorXDiaPlan }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.auditorXDiaReal ? accion_control.auditorXDiaReal : '-' }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.fechaInicioPlan ? accion_control.fechaInicioPlan|date('Y-m-d') : '-' }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.fechaFinPlan ? accion_control.fechaFinPlan|date('Y-m-d') : '-' }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.calificacion }}</td>
+                            <td{% if accion_control.activo==0 %} class="admin-disabled" {% endif %}>{{ accion_control.planMedidas ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('accion_control_show', { 'id': accion_control.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% if accion_control.activo==0 %}
+                                        &nbsp;<a class="btn btn-sm bg-primary-angular" href="{{ path('accion_control_activate', {'id': accion_control.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                    {% else %}
+                                        &nbsp;<a class="btn btn-sm blue-grey" href="{{ path('accion_control_edit', { 'id': accion_control.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="15">No se encontr&oacute; ning&uacute;n registro</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Download PDF Modal-->
+    <form method="post" action="{{ path('accion_control_download_pdf') }}">
+        <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-file-pdf-o"></i>
+                            &nbsp;Elija los parámetros</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Seleccione los parámetros para realizar el reporte.
+                        <br/><br/>
+                        <div>
+                            <label>Cantidad de auditores</label><br/>
+                            <label class="radio-inline" style="cursor: pointer;margin-left:20px;margin-right: 10px;">
+                                <input type="radio" name="auditor" value="plan" checked>&nbsp;Plan
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;">
+                                <input type="radio" name="auditor" value="real">&nbsp;Real
+                            </label>
+                        </div>
+                        <div>
+                            <label>Cantidad de d&iacute;as</label><br/>
+                            <label class="radio-inline" style="cursor: pointer;margin-left:20px;margin-right: 10px;">
+                                <input type="radio" name="dias" value="plan" checked>&nbsp;Plan
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;">
+                                <input type="radio" name="dias" value="real">&nbsp;Real
+                            </label>
+                        </div>
+                        <div>
+                            <label>Cantidad de auditores por d&iacute;a</label><br/>
+                            <label class="radio-inline" style="cursor: pointer;margin-left:20px;margin-right: 10px;">
+                                <input type="radio" name="auditorXdia" value="plan" checked>&nbsp;Plan
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;">
+                                <input type="radio" name="auditorXdia" value="real">&nbsp;Real
+                            </label>
+                        </div>
+                        <div>
+                            <label>Fecha de inicio de la acci&oacute;n</label><br/>
+                            <label class="radio-inline" style="cursor: pointer;margin-left:20px;margin-right: 10px;">
+                                <input type="radio" name="fechaInicio" value="plan" checked>&nbsp;Plan
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;">
+                                <input type="radio" name="fechaInicio" value="real">&nbsp;Real
+                            </label>
+                        </div>
+                        <div>
+                            <label>Fecha de final de la acci&oacute;n</label><br/>
+                            <label class="radio-inline" style="cursor: pointer;margin-left:20px;margin-right: 10px;">
+                                <input type="radio" name="fechaFin" value="plan" checked>&nbsp;Plan
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;">
+                                <input type="radio" name="fechaFin" value="real">&nbsp;Real
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-file-pdf-o"></i> Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

@@ -1,0 +1,609 @@
+{{ form_start(form) }}
+    {% if form_errors(form.ordenTrabajo) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.ordenTrabajo) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.directivas) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.directivas) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.calificacion) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.calificacion) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.auditorXDiaReal) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.auditorXDiaReal) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.diasReal) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.diasReal) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.auditorReal) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.auditorReal) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.auditorXDiaPlan) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.auditorXDiaPlan) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.diasPlan) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.diasPlan) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.auditorPlan) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.auditorPlan) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaFinReal) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaFinReal) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaInicioReal) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaInicioReal) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaFinPlan) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaFinPlan) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaInicioPlan) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaInicioPlan) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.danoOtraMoneda) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.danoOtraMoneda) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.danoCUC) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.danoCUC) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.danoCUP) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.danoCUP) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.combustible.danoEconomicoOtraMoneda) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.combustible.danoEconomicoOtraMoneda) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.combustible.danoEconomicoCup) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.combustible.danoEconomicoCup) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.combustible.evaluacion) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.combustible.evaluacion) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <br/>
+    <div class="form-group">
+        <div style="float: right;">
+            {{ form_row(form.planMedidas) }}
+        </div>
+        <div style="width: 90%;">
+            <div class="float-right" style="margin-right: 50px;">
+                {{ form_label(form.calificacion) }}
+                {{ form_widget(form.calificacion) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-cal', 'id_span':'span-cal', 'width':'230px;'}) }}
+            </div>
+            <div style="float: right; margin-right: 70px;">
+                {{ form_label(form.directivas) }}
+                {{ form_widget(form.directivas) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-d', 'id_span':'span-d', 'width':'230px;'}) }}
+            </div>
+            {{ form_label(form.ordenTrabajo) }}
+            {{ form_widget(form.ordenTrabajo) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ot', 'id_span':'span-ot', 'width':'230px;'}) }}
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.particularidad) }}
+        </div>
+        <div class="float-right" style="margin-right: 70px;">
+            {{ form_row(form.tipoAccion) }}
+        </div>
+        {{ form_row(form.entidad) }}
+    </div>
+    <br/>
+    <div class="form-group">
+        <div style="float: right;">
+            <div class="float-right">
+                {{ form_label(form.auditorXDiaReal) }}
+                {{ form_widget(form.auditorXDiaReal) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-adr', 'id_span':'span-adr', 'width':'150px;'}) }}
+            </div>
+            <div style="float: right; margin-right: 30px;">
+                {{ form_label(form.diasReal) }}
+                {{ form_widget(form.diasReal) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-dr', 'id_span':'span-dr', 'width':'140px;'}) }}
+            </div>
+            <div style="float: left; margin-right: 40px;">
+                {{ form_label(form.auditorReal) }}
+                {{ form_widget(form.auditorReal) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-ar', 'id_span':'span-ar', 'width':'150px;'}) }}
+            </div>
+        </div>
+        <div style="width: 50%;">
+            <div class="float-right" style="margin-right: 10px;">
+                {{ form_label(form.auditorXDiaPlan) }}
+                {{ form_widget(form.auditorXDiaPlan) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-adp', 'id_span':'span-adp', 'width':'150px;'}) }}
+            </div>
+            <div style="float: right; margin-right: 40px;">
+                {{ form_label(form.diasPlan) }}
+                {{ form_widget(form.diasPlan) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-dp', 'id_span':'span-dp', 'width':'150px;'}) }}
+            </div>
+            {{ form_label(form.auditorPlan) }}
+            {{ form_widget(form.auditorPlan) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ap', 'id_span':'span-ap', 'width':'150px;'}) }}
+        </div>
+    </div>
+    <br/>
+    <div class="form-group">
+        <div style="float: right;">
+            {{ form_label(form.fechaFinReal) }}
+            {{ form_widget(form.fechaFinReal) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ffr', 'id_span':'span-ffr', 'width':'220px;'}) }}
+        </div>
+        <div style="width: 80%;">
+            <div class="float-right" style="margin-right: 50px;">
+                {{ form_label(form.fechaInicioReal) }}
+                {{ form_widget(form.fechaInicioReal) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-fir', 'id_span':'span-fir', 'width':'220px;'}) }}
+            </div>
+            <div style="float: right; margin-right: 50px;">
+                {{ form_label(form.fechaFinPlan) }}
+                {{ form_widget(form.fechaFinPlan) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-ffp', 'id_span':'span-ffp', 'width':'220px;'}) }}
+            </div>
+            {{ form_label(form.fechaInicioPlan) }}
+            {{ form_widget(form.fechaInicioPlan) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-fip', 'id_span':'span-fip', 'width':'220px;'}) }}
+        </div>
+    </div>
+    <br/>
+    <div class="form-group w3-round-xlarge" style="padding: 20px; width: 80%; border: 1px solid #3f51b5 !important;">
+        <h4><label style="margin-left: 40%;">Da&ntilde;os econ&oacute;micos</label></h4>
+        <div class="float-right">
+            {{ form_label(form.danoOtraMoneda) }}
+            {{ form_widget(form.danoOtraMoneda) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-dom', 'id_span':'span-dom', 'width':'230px;'}) }}
+        </div>
+        <div style="float: right; margin-right: 70px;">
+            {{ form_label(form.danoCUC) }}
+            {{ form_widget(form.danoCUC) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-cuc', 'id_span':'span-cuc', 'width':'230px;'}) }}
+        </div>
+        {{ form_label(form.danoCUP) }}
+        {{ form_widget(form.danoCUP) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-cup', 'id_span':'span-cup', 'width':'230px;'}) }}
+    </div>
+    <div class="form-group w3-round-xlarge" style="padding: 20px; width: 80%; border: 1px solid #3f51b5 !important;">
+        <h4><label style="margin-left: 40%;">Combustible</label></h4>
+        <div style="float: right;">
+            <div style="float: right;">
+                {{ form_label(form.combustible.danoEconomicoOtraMoneda) }}
+                {{ form_widget(form.combustible.danoEconomicoOtraMoneda) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-com', 'id_span':'span-com', 'width':'230px;'}) }}
+            </div>
+            <div style="margin-right: 240px;">
+                {{ form_label(form.combustible.danoEconomicoCup) }}
+                {{ form_widget(form.combustible.danoEconomicoCup) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-ccup', 'id_span':'span-ccup', 'width':'230px;'}) }}
+            </div>
+        </div>
+        <div style="width: 200px;">
+            {{ form_label(form.combustible.evaluacion) }}
+            {{ form_widget(form.combustible.evaluacion) }}
+        </div>
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-evaluacion', 'id_span':'span-evaluacion', 'width':'240px'}) }}
+    </div>
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFecha(fecha) {
+        if (fecha === '1'){
+            var ffp = document.getElementById("accion_control_fechaFinPlan");
+            if(ffp.value!=='' && ffp.value!==null){
+                var fip = document.getElementById("accion_control_fechaInicioPlan");
+                if(fip.value!=='' && fip.value!==null){
+                    var end = new Date(ffp.value);
+                    var start = new Date(fip.value);
+                    if(end <= start){
+                        var m = start.getMonth() + 1;
+                        var day = start.getDate() + 1;
+                        if(m >= 1 && m <= 9){
+                            m = "0" + m;
+                        }
+                        if(day >= 1 && day <= 9){
+                            day = "0" + day;
+                        }
+                        var resp = day + "-" + m + "-" + start.getFullYear();
+                        $('#req-ffp').removeClass('collapse');
+                        document.getElementById("span-ffp").innerHTML = "La fecha final del plan debe ser mayor que la fecha inicial (" + resp.toString() + ").";
+                        $('#accion_control_fechaFinPlan').css("border", "1px solid #dc3545");
+                        $('#accion_control_fechaFinPlan:invalid').css("border", "1px solid #dc3545");
+                    }
+                    else {
+                        $('#req-ffp').addClass('collapse');
+                        $('#accion_control_fechaFinPlan').css("border", "1px solid #808080");
+                    }
+                }
+                else {
+                    $('#req-ffp').removeClass('collapse');
+                    document.getElementById("span-ffp").innerHTML = "Debe definir primero la fecha de inicio del plan.";
+                    $('#accion_control_fechaFinPlan').css("border", "1px solid #dc3545");
+                    $('#accion_control_fechaFinPlan:invalid').css("border", "1px solid #dc3545");
+                }
+            }
+        }
+        if (fecha === '2'){
+            var ffr = document.getElementById("accion_control_fechaFinReal");
+            if(ffr.value!=='' && ffr.value!==null){
+                var fir = document.getElementById("accion_control_fechaInicioReal");
+                if(fir.value!=='' && fir.value!==null){
+                    var end2 = new Date(ffr.value);
+                    var start2 = new Date(fir.value);
+                    if(end2 <= start2){
+                        var m2 = start2.getMonth() + 1;
+                        var day2 = start2.getDate() + 1;
+                        if(m2 >= 1 && m2 <= 9){
+                            m2 = "0" + m2;
+                        }
+                        if(day2 >= 1 && day2 <= 9){
+                            day2 = "0" + day2;
+                        }
+                        var resp2 = day2 + "-" + m2 + "-" + start2.getFullYear();
+                        $('#req-ffr').removeClass('collapse');
+                        document.getElementById("span-ffr").innerHTML = "La fecha final real debe ser mayor que la fecha inicial (" + resp2.toString() + ").";
+                        $('#accion_control_fechaFinReal').css("border", "1px solid #dc3545");
+                        $('#accion_control_fechaFinReal:invalid').css("border", "1px solid #dc3545");
+                    }
+                    else {
+                        $('#req-ffr').addClass('collapse');
+                        $('#accion_control_fechaFinReal').css("border", "1px solid #808080");
+                    }
+                }
+                else {
+                    $('#req-ffr').removeClass('collapse');
+                    document.getElementById("span-ffr").innerHTML = "Debe definir primero la fecha de inicio real.";
+                    $('#accion_control_fechaFinReal').css("border", "1px solid #dc3545");
+                    $('#accion_control_fechaFinReal:invalid').css("border", "1px solid #dc3545");
+                }
+            }
+        }
+    }
+    function validateFields(input) {
+        if (input === '1'){
+            var spanOt = document.getElementById('span-ot');
+            var inputOt = document.getElementById("accion_control_ordenTrabajo");
+            if (inputOt.checkValidity() === false) {
+                $('#req-ot').removeClass('collapse');
+                spanOt.innerHTML = inputOt.validationMessage;
+                $('#accion_control_ordenTrabajo:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ot').addClass('collapse');
+                $('#accion_control_ordenTrabajo').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanD = document.getElementById('span-d');
+            var inputD = document.getElementById("accion_control_directivas");
+            if (inputD.checkValidity() === false) {
+                $('#req-d').removeClass('collapse');
+                spanD.innerHTML = inputD.validationMessage;
+                $('#accion_control_directivas:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-d').addClass('collapse');
+                $('#accion_control_directivas').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanCal = document.getElementById('span-cal');
+            var inputCal = document.getElementById("accion_control_calificacion");
+            if (inputCal.checkValidity() === false) {
+                $('#req-cal').removeClass('collapse');
+                spanCal.innerHTML = inputCal.validationMessage;
+                $('#accion_control_calificacion:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cal').addClass('collapse');
+                $('#accion_control_calificacion').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '4'){
+            var spanAp = document.getElementById('span-ap');
+            var inputAp = document.getElementById("accion_control_auditorPlan");
+            if (inputAp.checkValidity() === false) {
+                $('#req-ap').removeClass('collapse');
+                spanAp.innerHTML = inputAp.validationMessage;
+                $('#accion_control_auditorPlan:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ap').addClass('collapse');
+                $('#accion_control_auditorPlan').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '5'){
+            var spanDp = document.getElementById('span-dp');
+            var inputDp = document.getElementById("accion_control_diasPlan");
+            if (inputDp.checkValidity() === false) {
+                $('#req-dp').removeClass('collapse');
+                spanDp.innerHTML = inputDp.validationMessage;
+                $('#accion_control_diasPlan:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-dp').addClass('collapse');
+                $('#accion_control_diasPlan').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '6'){
+            var spanAdp = document.getElementById('span-adp');
+            var inputAdp = document.getElementById("accion_control_auditorXDiaPlan");
+            if (inputAdp.checkValidity() === false) {
+                $('#req-adp').removeClass('collapse');
+                spanAdp.innerHTML = inputAdp.validationMessage;
+                $('#accion_control_auditorXDiaPlan:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-adp').addClass('collapse');
+                $('#accion_control_auditorXDiaPlan').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '7'){
+            var spanAr = document.getElementById('span-ar');
+            var inputAr = document.getElementById("accion_control_auditorReal");
+            if (inputAr.checkValidity() === false) {
+                $('#req-ar').removeClass('collapse');
+                spanAr.innerHTML = inputAr.validationMessage;
+                $('#accion_control_auditorReal:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ar').addClass('collapse');
+                $('#accion_control_auditorReal').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '8'){
+            var spanDr = document.getElementById('span-dr');
+            var inputDr = document.getElementById("accion_control_diasReal");
+            if (inputDr.checkValidity() === false) {
+                $('#req-dr').removeClass('collapse');
+                spanDr.innerHTML = inputDr.validationMessage;
+                $('#accion_control_diasReal:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-dr').addClass('collapse');
+                $('#accion_control_diasReal').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '9'){
+            var spanAdr = document.getElementById('span-adr');
+            var inputAdr = document.getElementById("accion_control_auditorXDiaReal");
+            if (inputAdr.checkValidity() === false) {
+                $('#req-adr').removeClass('collapse');
+                spanAdr.innerHTML = inputAdr.validationMessage;
+                $('#accion_control_auditorXDiaReal:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-adr').addClass('collapse');
+                $('#accion_control_auditorXDiaReal').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '10'){
+            var spanFip = document.getElementById('span-fip');
+            var inputFip = document.getElementById("accion_control_fechaInicioPlan");
+            if (inputFip.checkValidity() === false) {
+                $('#req-fip').removeClass('collapse');
+                spanFip.innerHTML = inputFip.validationMessage;
+                $('#accion_control_fechaInicioPlan:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fip').addClass('collapse');
+                $('#accion_control_fechaInicioPlan').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '11'){
+            var spanFfp = document.getElementById('span-ffp');
+            var inputFfp = document.getElementById("accion_control_fechaFinPlan");
+            if (inputFfp.checkValidity() === false) {
+                $('#req-ffp').removeClass('collapse');
+                spanFfp.innerHTML = inputFfp.validationMessage;
+                $('#accion_control_fechaFinPlan:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ffp').addClass('collapse');
+                $('#accion_control_fechaFinPlan').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '12'){
+            var spanFir = document.getElementById('span-fir');
+            var inputFir = document.getElementById("accion_control_fechaInicioReal");
+            if (inputFir.checkValidity() === false) {
+                $('#req-fir').removeClass('collapse');
+                spanFir.innerHTML = inputFir.validationMessage;
+                $('#accion_control_fechaInicioReal:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fir').addClass('collapse');
+                $('#accion_control_fechaInicioReal').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '13'){
+            var spanFfr = document.getElementById('span-ffr');
+            var inputFfr = document.getElementById("accion_control_fechaFinReal");
+            if (inputFfr.checkValidity() === false) {
+                $('#req-ffr').removeClass('collapse');
+                spanFfr.innerHTML = inputFfr.validationMessage;
+                $('#accion_control_fechaFinReal:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ffr').addClass('collapse');
+                $('#accion_control_fechaFinReal').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '14'){
+            var spanEvaluacion = document.getElementById('span-evaluacion');
+            var inputEvaluacion = document.getElementById("accion_control_combustible_evaluacion");
+            if (inputEvaluacion.checkValidity() === false) {
+                $('#req-evaluacion').removeClass('collapse');
+                spanEvaluacion.innerHTML = inputEvaluacion.validationMessage;
+                $('#accion_control_combustible_evaluacion:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-evaluacion').addClass('collapse');
+                $('#accion_control_combustible_evaluacion').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '15'){
+            var spanCup = document.getElementById('span-cup');
+            var inputCup = document.getElementById("accion_control_danoCUP");
+            if (inputCup.checkValidity() === false) {
+                $('#req-cup').removeClass('collapse');
+                spanCup.innerHTML = inputCup.validationMessage;
+                $('#accion_control_danoCUP:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cup').addClass('collapse');
+                $('#accion_control_danoCUP').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '16'){
+            var spanCuc = document.getElementById('span-cuc');
+            var inputCuc = document.getElementById("accion_control_danoCUC");
+            if (inputCuc.checkValidity() === false) {
+                $('#req-cuc').removeClass('collapse');
+                spanCuc.innerHTML = inputCuc.validationMessage;
+                $('#accion_control_danoCUC:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cuc').addClass('collapse');
+                $('#accion_control_danoCUC').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '17'){
+            var spanOm = document.getElementById('span-dom');
+            var inputOm = document.getElementById("accion_control_danoOtraMoneda");
+            if (inputOm.checkValidity() === false) {
+                $('#req-dom').removeClass('collapse');
+                spanOm.innerHTML = inputOm.validationMessage;
+                $('#accion_control_danoOtraMoneda:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-dom').addClass('collapse');
+                $('#accion_control_danoOtraMoneda').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '18'){
+            var spanCcup = document.getElementById('span-ccup');
+            var inputCcup = document.getElementById("accion_control_combustible_danoEconomicoCup");
+            if (inputCcup.checkValidity() === false) {
+                $('#req-ccup').removeClass('collapse');
+                spanCcup.innerHTML = inputCcup.validationMessage;
+                $('#accion_control_combustible_danoEconomicoCup:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ccup').addClass('collapse');
+                $('#accion_control_combustible_danoEconomicoCup').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '19'){
+            var spanCom = document.getElementById('span-com');
+            var inputCom = document.getElementById("accion_control_combustible_danoEconomicoOtraMoneda");
+            if (inputCom.checkValidity() === false) {
+                $('#req-com').removeClass('collapse');
+                spanCom.innerHTML = inputCom.validationMessage;
+                $('#accion_control_combustible_danoEconomicoOtraMoneda:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-com').addClass('collapse');
+                $('#accion_control_combustible_danoEconomicoOtraMoneda').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+    function llenarFinPlan() {
+        var ff = document.getElementById('accion_control_fechaInicioPlan');
+        if(ff.value!=='' && ff.value!==null){
+            var d = new Date(ff.value);
+            d.setDate(d.getDate() + 14);
+            var m = d.getMonth() + 1;
+            var day = d.getDate() + 1;
+            if(m >= 1 && m <= 9){
+                m = "0" + m;
+            }
+            if(day >= 1 && day <= 9){
+                day = "0" + day;
+            }
+            var resp = d.getFullYear() + "-" + m + "-" + day;
+            //alert(resp);
+            document.getElementById("accion_control_fechaFinPlan").value = resp.toString();
+        }
+    }
+    function llenarFinReal() {
+        var ff = document.getElementById('accion_control_fechaInicioReal');
+        if(ff.value!=='' && ff.value!==null){
+            var d = new Date(ff.value);
+            d.setDate(d.getDate() + 14);
+            var m = d.getMonth() + 1;
+            var day = d.getDate() + 1;
+            if(m >= 1 && m <= 9){
+                m = "0" + m;
+            }
+            if(day >= 1 && day <= 9){
+                day = "0" + day;
+            }
+            var resp = d.getFullYear() + "-" + m + "-" + day;
+            //alert(resp);
+            document.getElementById("accion_control_fechaFinReal").value = resp.toString();
+        }
+    }
+</script>

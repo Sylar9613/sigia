@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver responsabilidad administrativa{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('responsabilidad_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Responsabilidad administrativa</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ responsabilidad.id }}</td>
+            </tr>
+            <tr>
+                <th>Medida disciplinaria</th>
+                <td>&lpar;{{ responsabilidad.medidaDisciplinaria.categoria }}&rpar;&nbsp;{{ responsabilidad.medidaDisciplinaria.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Implicado</th>
+                <td>{{ responsabilidad.implicado.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Total de medidas</th>
+                <td>{{ responsabilidad.medidasTotal ? responsabilidad.medidasTotal : '-' }}</td>
+            </tr>
+            <tr>
+                <th>Medidas pendientes</th>
+                <td>{{ responsabilidad.medidasPendientes ? responsabilidad.medidasPendientes : '-' }}</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and responsabilidad.activo==1 %}
+        <a href="{{ path('responsabilidad_edit', { 'id': responsabilidad.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('responsabilidad/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar {{ particularidad.nombre }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('particularidad_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Editar particularidad</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('particularidad/_form.html.twig', {'button_label': 'Actualizar', 'button_class': 'btn-warning', 'button_fa': 'fa-refresh'}) }}
+
+    {{ include('particularidad/_delete_form.html.twig') }}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

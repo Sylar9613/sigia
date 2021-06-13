@@ -1,0 +1,350 @@
+{{ form_start(form) }}
+    {% if form_errors(form.numeroExpediente) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.numeroExpediente) }}
+        </div>
+    {% endif %}
+    {#{% if form_errors(form.categoria) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.categoria) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.provincia) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.provincia) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaDeteccion) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaDeteccion) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fechaOcurrencia) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fechaOcurrencia) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fuente) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fuente) }}
+        </div>
+    {% endif %}#}
+    {% if form_errors(form.totalImplicadosEntidad) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.totalImplicadosEntidad) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.totalImplicadosOtras) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.totalImplicadosOtras) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.afectacionEconomicaCUP) %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong>{{ form_errors(form.afectacionEconomicaCUP) }}
+    </div>
+{% endif %}
+    {% if form_errors(form.recuperadoCUP) %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong>{{ form_errors(form.recuperadoCUP) }}
+    </div>
+{% endif %}
+    {% if form_errors(form.objetoSocialEntidad) %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong>{{ form_errors(form.objetoSocialEntidad) }}
+    </div>
+{% endif %}
+    {% if form_errors(form.resumen) %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong>{{ form_errors(form.resumen) }}
+    </div>
+{% endif %}
+    {% if form_errors(form.implicados) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.implicados) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.responsabilidad) %}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong>{{ form_errors(form.responsabilidad) }}
+    </div>
+{% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <br/>
+    <div class="form-group">
+        <div style="float: right;">
+            {{ form_label(form.totalImplicadosOtras) }}
+            {{ form_widget(form.totalImplicadosOtras) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-io', 'id_span':'span-io', 'width':'220px;'}) }}
+        </div>
+        <div style="width: 80%;">
+            <div class="float-right" style="margin-right: 50px;">
+                {{ form_label(form.totalImplicadosEntidad) }}
+                {{ form_widget(form.totalImplicadosEntidad) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-ie', 'id_span':'span-ie', 'width':'240px;'}) }}
+            </div>
+            <div style="float: right; margin-right: 50px;">
+                {{ form_label(form.phc) }}
+                {{ form_widget(form.phc) }}
+            </div>
+            {{ form_label(form.numeroExpediente) }}
+            {{ form_widget(form.numeroExpediente) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ne', 'id_span':'span-ne', 'width':'230px;'}) }}
+        </div>
+    </div>
+    {#<div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.provincia) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-prov', 'id_span':'span-prov', 'width':'230px;'}) }}
+        </div>
+        <div class="float-right" style="margin-right: 70px;">
+            {{ form_row(form.categoria) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-cat', 'id_span':'span-cat'}) }}
+        </div>
+        {{ form_row(form.numeroExpediente) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-ne', 'id_span':'span-ne', 'width':'230px;'}) }}
+    </div>#}
+    <br/>
+    {#<div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.fechaOcurrencia) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-fo', 'id_span':'span-fo', 'width':'240px;'}) }}
+        </div>
+        <div class="float-right" style="margin-right: 40px;">
+            {{ form_row(form.fechaDeteccion) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-fd', 'id_span':'span-fd', 'width':'240px;'}) }}
+        </div>
+        {{ form_row(form.fuente) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-fuente', 'id_span':'span-fuente'}) }}
+    </div>
+    <br/>#}
+    {#<div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.phc) }}
+        </div>
+        <div class="float-right" style="margin-right: 40px;">
+            {{ form_row(form.municipio) }}
+        </div>
+        {{ form_row(form.entidad) }}
+    </div>
+    <br/>#}
+    <div class="form-group">
+        <div style="float: right;width: 420px;">
+            {{ form_row(form.resumen) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-resumen', 'id_span':'span-resumen'}) }}
+        </div>
+        <div style="width: 50%;">
+            <div class="float-right" style="margin-right: 25px;">
+                {{ form_label(form.afectacionEconomicaCUP) }}
+                {{ form_widget(form.afectacionEconomicaCUP) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-ae', 'id_span':'span-ae', 'width':'210px;'}) }}
+            </div>
+            {{ form_label(form.recuperadoCUP) }}
+            {{ form_widget(form.recuperadoCUP) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-re', 'id_span':'span-re', 'width':'210px;'}) }}
+        </div>
+    </div>
+    <br/>
+    <div style="width: 450px;">
+        {{ form_row(form.objetoSocialEntidad) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-os', 'id_span':'span-os', 'width':'260px;'}) }}
+    </div>
+    <br/>
+    <h6>{{ form_label(form.implicados) }}</h6>
+    <ul class="implicados" data-prototype="{{ form_widget(form.implicados.vars.prototype)|e('html_attr') }}">
+        {% for implicado in form.implicados %}
+            <li style="border-top: 1px dashed #dc3545; padding-top: 20px; margin-left: -40px; list-style-type:none;">{{ form_widget(implicado) }}</li>
+        {% endfor %}
+    </ul>
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-imp', 'id_span':'span-imp'}) }}
+    {{ form_widget(form.implicados) }}
+    <br/>
+    <h6>{{ form_label(form.responsabilidad) }}</h6>
+    <ul class="responsabilidades" data-prototype="{{ form_widget(form.responsabilidad.vars.prototype)|e('html_attr') }}">
+        {% for resp in form.responsabilidad %}
+            <li style="border-top: 1px dashed #dc3545; padding-top: 20px; margin-left: -40px; list-style-type:none;">{{ form_widget(resp) }}</li>
+        {% endfor %}
+    </ul>
+    {{ form_widget(form.responsabilidad) }}
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanNumero = document.getElementById('span-ne');
+            var inputNumero = document.getElementById("hc_numeroExpediente");
+            if (inputNumero.checkValidity() === false) {
+                $('#req-ne').removeClass('collapse');
+                spanNumero.innerHTML = inputNumero.validationMessage;
+                $('#hc_numeroExpediente:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ne').addClass('collapse');
+                $('#hc_numeroExpediente').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanCat = document.getElementById('span-cat');
+            var inputCat = document.getElementById("hc_categoria");
+            if (inputCat.checkValidity() === false) {
+                $('#req-cat').removeClass('collapse');
+                spanCat.innerHTML = inputCat.validationMessage;
+                $('#hc_categoria:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cat').addClass('collapse');
+                $('#hc_categoria').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanProv = document.getElementById('span-prov');
+            var inputProv = document.getElementById("hc_provincia");
+            if (inputProv.checkValidity() === false) {
+                $('#req-prov').removeClass('collapse');
+                spanProv.innerHTML = inputProv.validationMessage;
+                $('#hc_provincia:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-prov').addClass('collapse');
+                $('#hc_provincia').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '4'){
+            var spanFuente = document.getElementById('span-fuente');
+            var inputFuente = document.getElementById("hc_fuente");
+            if (inputFuente.checkValidity() === false) {
+                $('#req-fuente').removeClass('collapse');
+                spanFuente.innerHTML = inputFuente.validationMessage;
+                $('#hc_fuente:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fuente').addClass('collapse');
+                $('#hc_fuente').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '5'){
+            var spanDet = document.getElementById('span-fd');
+            var inputDet = document.getElementById("hc_fechaDeteccion");
+            if (inputDet.checkValidity() === false) {
+                $('#req-fd').removeClass('collapse');
+                spanDet.innerHTML = inputDet.validationMessage;
+                $('#hc_fechaDeteccion:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fd').addClass('collapse');
+                $('#hc_fechaDeteccion').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '6'){
+            var spanOcu = document.getElementById('span-fo');
+            var inputOcu = document.getElementById("hc_fechaOcurrencia");
+            if (inputOcu.checkValidity() === false) {
+                $('#req-fo').removeClass('collapse');
+                spanOcu.innerHTML = inputOcu.validationMessage;
+                $('#hc_fechaOcurrencia:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fo').addClass('collapse');
+                $('#hc_fechaOcurrencia').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '7'){
+            var spanAe = document.getElementById('span-ae');
+            var inputAe = document.getElementById("hc_afectacionEconomicaCUP");
+            if (inputAe.checkValidity() === false) {
+                $('#req-ae').removeClass('collapse');
+                spanAe.innerHTML = inputAe.validationMessage;
+                $('#hc_afectacionEconomicaCUP:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ae').addClass('collapse');
+                $('#hc_afectacionEconomicaCUP').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '8'){
+            var spanRe = document.getElementById('span-re');
+            var inputRe = document.getElementById("hc_recuperadoCUP");
+            if (inputRe.checkValidity() === false) {
+                $('#req-re').removeClass('collapse');
+                spanRe.innerHTML = inputRe.validationMessage;
+                $('#hc_recuperadoCUP:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-re').addClass('collapse');
+                $('#hc_recuperadoCUP').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '9'){
+            var spanIe = document.getElementById('span-ie');
+            var inputIe = document.getElementById("hc_totalImplicadosEntidad");
+            if (inputIe.checkValidity() === false) {
+                $('#req-ie').removeClass('collapse');
+                spanIe.innerHTML = inputIe.validationMessage;
+                $('#hc_totalImplicadosEntidad:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ie').addClass('collapse');
+                $('#hc_totalImplicadosEntidad').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '10'){
+            var spanIo = document.getElementById('span-io');
+            var inputIo = document.getElementById("hc_totalImplicadosOtras");
+            if (inputIo.checkValidity() === false) {
+                $('#req-io').removeClass('collapse');
+                spanIo.innerHTML = inputIo.validationMessage;
+                $('#hc_totalImplicadosOtras:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-io').addClass('collapse');
+                $('#hc_totalImplicadosOtras').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '13'){
+            var spanOs = document.getElementById('span-os');
+            var inputOs = document.getElementById("hc_objetoSocialEntidad");
+            if (inputOs.checkValidity() === false) {
+                $('#req-os').removeClass('collapse');
+                spanOs.innerHTML = inputOs.validationMessage;
+                $('#hc_objetoSocialEntidad:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-os').addClass('collapse');
+                $('#hc_objetoSocialEntidad').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '14'){
+            var spanResumen = document.getElementById('span-resumen');
+            var inputResumen = document.getElementById("hc_resumen");
+            if (inputResumen.checkValidity() === false) {
+                $('#req-resumen').removeClass('collapse');
+                spanResumen.innerHTML = inputResumen.validationMessage;
+                $('#hc_resumen:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-resumen').addClass('collapse');
+                $('#hc_resumen').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

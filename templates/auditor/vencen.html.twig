@@ -1,0 +1,58 @@
+{% extends 'auditor/index.html.twig' %}
+{% block elem %}
+    {% set ele=0 %}
+    {% for auditor in auditors if auditor.fechaRna|date('Y')==auditor.getAnno() %}
+        {% set ele=ele+1 %}
+    {% endfor %}
+    {{ ele }}
+{% endblock %}
+{% block tbody %}
+    <tbody>
+    {% for auditor in auditors if auditor.fechaRna|date('Y')==auditor.getAnno() %}
+        <tr>
+            {#{% if is_granted('ROLE_SUPER_ADMIN') %}
+                <td><a href="{{ path('auditor_show', { 'id': auditor.id }) }}">{{ auditor.id }}</a></td>
+                <td>{{ auditor.getEdad() }}</td>
+            {% else %}#}
+                <td><a href="{{ path('auditor_show', { 'id': auditor.id }) }}">{{ auditor.getEdad() }}</a></td>
+            {#{% endif %}#}
+            <td>{{ auditor.getSexo() }}</td>
+            {#<td>{% if auditor.activo %}<i class="fa fa-fw fa-check-square-o"></i>{% else %}<i class="fa fa-fw fa-square-o"></i>{% endif %}</td>#}
+            {#<td>
+                {% set tam=auditor.cursos|length %}
+                {% if tam>0 %}
+                    {% for curso in auditor.cursos %}
+                        {{ curso.descripcion }}
+                        {% set tam=tam-1 %}
+                        {% if tam!=0 %}
+                            {{ ', ' }}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <i class="fa fa-fw fa-minus-circle"></i>
+                {% endif %}
+            </td>#}
+            <td>{{ auditor.nombres }}</td>
+            <td>{{ auditor.apellidos }}</td>
+            <td>{{ auditor.ci }}</td>
+            <td>{{ auditor.localidad.nombre }}</td>
+            <td>{{ auditor.entidad.nombre }}</td>
+            <td>{{ auditor.cargo.nombre }}</td>
+            {#<td>{{ auditor.nivel.nombre }}</td>#}
+            {#<td>{{ auditor.direccion }}</td>#}
+            {#<td>{{ auditor.telefono }}</td>
+            <td>{{ auditor.correo }}</td>#}
+            {#<td>{% if auditor.fea %}<i class="fa fa-fw fa-check-square-o"></i>{% else %}<i class="fa fa-fw fa-square-o"></i>{% endif %}</td>#}
+            <td>{{ auditor.rna }}</td>
+            {#<td>{% if auditor.fechaRna %}{{ auditor.fechaRna|date('Y-m-d') }}{% endif %}</td>#}
+            <td>
+                <a class="btn btn-sm blue-grey" href="{{ path('auditor_show', { 'id': auditor.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    &nbsp;
+                    <a class="btn btn-sm blue-grey" href="{{ path('auditor_edit', { 'id': auditor.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}

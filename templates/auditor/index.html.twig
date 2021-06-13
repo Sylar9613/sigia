@@ -1,0 +1,350 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auditores{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    <label class="text-small float-right">
+        Aprob. <span title="Plazas aprobadas" class="badge badge-success badge-pill">{{ aprob }}</span>
+        - Cub. <span title="Plazas cubiertas" class="badge badge-danger badge-pill">{{ cub }}</span>
+        &nbsp;
+        Cant.: <span title="Cantidad de elementos de la tabla" class="badge badge-info badge-pill">{% block elem %}{{ auditors|length }}{% endblock %}</span>
+    </label>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-primary-angular" href="{{ path('auditor_new') }}"><span><i class="fa fa-fw fa-file-o"></i>Nuevo</span></a>
+    {% endif %}
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button btn-danger" title="Auditores que se les vence el R.N.A." href="{{ path('auditor_vence') }}"><span>Vence R.N.A.</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <a id="midemo" title="Expandir/Colapsar filtros" href="#demo" class="fa fa-fw fa-expand demobtn btn-secondary w3-btn-floating w3-animate-zoom" data-toggle="collapse"></a>
+    <br/><br/>
+    <div id="demo" class="collapse in">
+        <form method="post" action="{{ path('auditor_filter') }}">
+            <div class="form-group">
+                <div style="float: right; width: 33%;">
+                    <label><b>Cargos</b></label>
+                    <select name="filtrar_cargo" class="form-control" style="width: 100%;">
+                        <option value="todos">Todos</option>
+                        {% for a in cargos %}
+                            <option value="{{ a.id }}">{{ a.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="width: 67%;">
+                    <div style="float: right; width: 50%;">
+                        <label><b>Localidades</b></label>
+                        <select name="filtrar_loc" class="form-control" style="width: 71%;">
+                            <option value="todas">Todas</option>
+                            {% for a in localidads %}
+                                <option value="{{ a.id }}">{{ a.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label><b>Municipios</b></label>
+                    <select name="filtrar_mun" class="form-control" style="width: 30%;">
+                        <option value="todos">Todos</option>
+                        {% for a in municipios %}
+                            <option value="{{ a.id }}">{{ a.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <hr class="hr"/>
+                <div style="float: right; width: 33%;">
+                    <label><b>Entidades</b></label>
+                    <select name="filtrar_ent" class="form-control" style="width: 100%;">
+                        <option value="todas">Todas</option>
+                        {% for a in entidads %}
+                            <option value="{{ a.id }}">{{ a.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div style="width: 67%;">
+                    <div style="width: 50%;float: right;">
+                        <label><b>Osdes</b></label>
+                        <select name="filtrar_osde" class="form-control" style="width: 71%;">
+                            <option value="todas">Todas</option>
+                            {% for a in osdes %}
+                                <option value="{{ a.id }}">{{ a.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <label><b>Organismos</b></label>
+                    <select name="filtrar_org" class="form-control" style="width: 30%;">
+                        <option value="todos">Todos</option>
+                        {% for a in organismos %}
+                            <option value="{{ a.id }}">{{ a.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <hr class="hr"/>
+                <div style="float: right; width: 50%;">{#Original 40%#}
+                    <div style="float: right; width: 50%; vertical-align: middle;">
+                        <br />
+                        <input style="width: 34%; float: left;" class="form-control" name="mayorque" type="number" id="edad">
+                        <label style="float: left;vertical-align: middle;"><b>&lt;&nbsp;Edad&nbsp;&lt;&nbsp;</b></label>
+                        <input style="float: left;width: 34%;" class="form-control menorque" name="menorque" type="number" id="edad">
+                    </div>
+                    <div style="width: 40%;text-align: center;">
+                        <label style="text-align: center"><b>F.E.A.</b></label>
+                        <br />
+                        <label class="radio-inline" style="margin-right: 10px;">
+                            <input type="radio" name="filtrar_fea" value="1">&nbsp;Si
+                        </label>
+                        <label class="radio-inline" style="margin-right: 10px;">
+                            <input type="radio" name="filtrar_fea" value="0">&nbsp;No
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="filtrar_fea" value="todos" checked>&nbsp;Todos
+                        </label>
+                    </div>
+                </div>
+                <div style="width: 60%;">{#Original 67%#}
+                    <div style="vertical-align: bottom; float: right; width: 30%;">
+                        <div style="width: 90%;text-align: center;">{#Original 80%#}
+                            <label style="text-align: center"><b>Sexo</b></label>
+                            <br />
+                            <label class="radio-inline" style="margin-right: 10px;">
+                                <input type="radio" name="sexofiltrar" value="m">&nbsp;M
+                            </label>
+                            <label class="radio-inline" style="margin-right: 10px;">
+                                <input type="radio" name="sexofiltrar" value="f">&nbsp;F
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sexofiltrar" value="todos" checked>&nbsp;Todos
+                            </label>
+                        </div>
+                    </div>
+                    <label><b>Nivel escolar</b></label>
+                    <select name="filtrar_niv" class="form-control" style="width: 50%;">{#Original 50%#}
+                        <option value="todos">Todos</option>
+                        {% for a in nivels %}
+                            <option value="{{ a.id }}">{{ a.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <hr class="hr"/>
+                <button type="submit" class="btn btn-success btn-lg btn-block">
+                    <i class="fa fa-fw fa-filter"></i>&nbsp;<b>Filtrar</b></button>
+            </div>
+        </form>
+        <a class="btn btn-danger btn-lg btn-block text-white" data-toggle="modal" data-target="#downloadModal"
+           title="Descargar en formato *.pdf reporte de los auditores">
+            <i class="fa fa-fw fa-download"></i>&nbsp;<b>Descargar PDF</b></a>
+    </div>
+    <br/>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Listado de auditores
+        </div>
+        <div class="card-body">
+            <br/>
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table table-responsive {#table-bordered table-striped #}table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                    <tr class="blue-grey">
+                        {#{% if is_granted('ROLE_ADMIN') %}
+                            <th>Id</th>
+                        {% endif %}#}
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        {#<th>Activo</th>#}
+                        {#{% block cursos %}<th>Cursos</th>{% endblock %}#}
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>CI</th>
+                        <th>Localidad</th>
+                        <th>Entidad</th>
+                        <th>Cargo</th>
+                        {#<th>Nivel</th>#}
+                        {#<th>Dirección</th>#}
+                        {#<th>Teléfono</th>
+                        <th>Correo</th>#}
+                        {#<th>F.E.A.</th>#}
+                        <th>R.N.A.</th>
+                        {#<th>Fecha R.N.A</th>#}
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr class="blue-grey">
+                        {#{% if is_granted('ROLE_ADMIN') %}
+                            <th>Id</th>
+                        {% endif %}#}
+                        <th>Edad</th>
+                        <th>Sexo</th>
+                        {#<th>Activo</th>#}
+                        {#{% block cursos %}<th>Cursos</th>{% endblock %}#}
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>CI</th>
+                        <th>Localidad</th>
+                        <th>Entidad</th>
+                        <th>Cargo</th>
+                        {#<th>Nivel</th>#}
+                        {#<th>Dirección</th>#}
+                        {#<th>Teléfono</th>
+                        <th>Correo</th>#}
+                        {#<th>F.E.A.</th>#}
+                        <th>R.N.A.</th>
+                        {#<th>Fecha R.N.A</th>#}
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </tfoot>
+                    {% block tbody %}
+                    <tbody>
+                    {% for auditor in auditors %}
+                        <tr>
+                            {#{% if is_granted('ROLE_ADMIN') %}
+                                <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('auditor_show', { 'id': auditor.id }) }}">{{ auditor.id }}</a>
+                                </td>
+                                <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.getEdad() }}</td>
+                            {% else %}#}
+                                <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('auditor_show', { 'id': auditor.id }) }}">{{ auditor.getEdad() }}</a>
+                                </td>
+                            {#{% endif %}#}
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.getSexo() }}</td>
+                            {#<td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.activo ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>#}
+                            {#<td>
+                                {% set tam=auditor.cursos|length %}
+                                {% if tam>0 %}
+                                    {% for curso in auditor.cursos %}
+                                        {{ curso.descripcion }}
+                                        {% set tam=tam-1 %}
+                                        {% if tam!=0 %}
+                                            {{ ', ' }}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <i class="fa fa-fw fa-minus-circle"></i>
+                                {% endif %}
+                            </td>#}
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.nombres }}</td>
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.apellidos }}</td>
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.ci }}</td>
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.localidad.nombre }}</td>
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.entidad.nombre }}</td>
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.cargo.nombre }}</td>
+                            {#<td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.nivel.nombre }}</td>#}
+                            {#<td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.direccion }}</td>#}
+                            {#<td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.telefono }}</td>#}
+                            {#<td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.correo }}</td>#}
+                            {#<td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.fea ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>#}
+                            <td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.rna }}</td>
+                            {#<td{% if auditor.activo==0 %} class="admin-disabled" {% endif %}>{{ auditor.fechaRna ? auditor.fechaRna|date('Y-m-d') : '' }}</td>#}
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('auditor_show', { 'id': auditor.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% if auditor.activo==0 %}
+                                        &nbsp;<a class="btn btn-sm bg-primary-angular" href="{{ path('auditor_activate', {'id': auditor.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                    {% else %}
+                                        &nbsp;<a class="btn btn-sm blue-grey" href="{{ path('auditor_edit', { 'id': auditor.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">No se encontr&oacute; ning&uacute;n registro</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    {% endblock %}
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Actualizado ayer a las 11:59 PM</div>
+    </div>
+    {# read and display just one flash message type #}{#
+    {% for message in app.flashes('notice') %}
+        <div class="w3-container w3-section w3-green w3-animate-opacity flash-notice">
+            <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">X</span>
+            <h3>Success!</h3>
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}#}
+    <!-- Download PDF Modal-->
+    <form method="post" action="{{ path('download_pdf') }}">
+        <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-fw fa-file-pdf-o"></i>
+                            &nbsp;Elija los parámetros</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Seleccione los parámetros para realizar el reporte.
+                        <br/><br/>
+                        <div>
+                            <label class="radio-inline" style="cursor: pointer;margin-right: 10px;">
+                                <input type="radio" name="ubicacion" value="mun" checked>&nbsp;Municipio
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;">
+                                <input type="radio" name="ubicacion" value="loc">&nbsp;Localidad
+                            </label>
+                        </div>
+                        <div>
+                            <label class="radio-inline" style="cursor: pointer;margin-right: 10px;">
+                                <input type="radio" name="trabajo" value="org" checked>&nbsp;Organismo
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;margin-right: 10px;">
+                                <input type="radio" name="trabajo" value="osde">&nbsp;OSDE
+                            </label>
+                            <label class="radio-inline" style="cursor: pointer;">
+                                <input type="radio" name="trabajo" value="ent">&nbsp;Entidad
+                            </label>
+                        </div>
+                        <div>
+                            <label class="checkbox-inline" style="cursor: pointer;margin-right: 10px;">
+                                <input type="checkbox" name="cargo">&nbsp;Cargo
+                            </label>
+                            <label class="checkbox-inline" style="cursor: pointer;margin-right: 28px;">
+                                <input type="checkbox" name="correo">&nbsp;Correo
+                            </label>
+                            <label class="checkbox-inline" style="cursor: pointer;">
+                                <input type="checkbox" name="nivel">&nbsp;Nivel escolar
+                            </label>
+                        </div>
+                        <div>
+                            <label class="checkbox-inline" style="cursor: pointer;margin-right: 17px;">
+                                <input type="checkbox" name="edad">&nbsp;Edad
+                            </label>
+                            <label class="checkbox-inline" style="cursor: pointer;margin-right: 10px;">
+                                <input type="checkbox" name="direccion">&nbsp;Dirección
+                            </label>
+                            <label class="checkbox-inline" style="cursor: pointer;">
+                                <input type="checkbox" name="ci">&nbsp;Carnet de Identidad
+                            </label>
+                        </div>
+                        <div>
+                            <label class="checkbox-inline" style="cursor: pointer;margin-right: 19px;">
+                                <input type="checkbox" name="sexo">&nbsp;Sexo
+                            </label>
+                            <label class="checkbox-inline" style="cursor: pointer;margin-right: 16px;">
+                                <input type="checkbox" name="telefono">&nbsp;Teléfono
+                            </label>
+                            <label class="checkbox-inline" style="cursor: pointer;">
+                                <input type="checkbox" name="rna">&nbsp;Número R.N.A.
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-file-pdf-o"></i> Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

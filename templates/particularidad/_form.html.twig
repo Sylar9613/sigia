@@ -1,0 +1,52 @@
+{{ form_start(form) }}
+    {% if form_errors(form.nombre) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.siglas) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.siglas) }}
+        </div>
+    {% endif %}
+    <div class="float-right" style="margin-right: 300px;">
+        {{ form_row(form.siglas) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-siglas', 'id_span':'span-siglas'}) }}
+    </div>
+    {{ form_row(form.nombre) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-nombre', 'id_span':'span-nombre'}) }}
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanNombre = document.getElementById('span-nombre');
+            var inputNombre = document.getElementById("particularidad_nombre");
+            if (inputNombre.checkValidity() === false) {
+                $('#req-nombre').removeClass('collapse');
+                spanNombre.innerHTML = inputNombre.validationMessage;
+                $('#particularidad_nombre:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nombre').addClass('collapse');
+                $('#particularidad_nombre').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanSiglas = document.getElementById('span-siglas');
+            var inputSiglas = document.getElementById("particularidad_siglas");
+            if (inputSiglas.checkValidity() === false) {
+                $('#req-siglas').removeClass('collapse');
+                spanSiglas.innerHTML = inputSiglas.validationMessage;
+                $('#particularidad_siglas:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-siglas').addClass('collapse');
+                $('#particularidad_siglas').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

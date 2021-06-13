@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar {{ municipio.nombre }}{% endblock %}
+
+{% block body %}
+    {#<hr/>
+    <h6 class="primary">{{ routes|join(' / ') }}</h6>
+    <hr/>#}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('municipio_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h1>Editar municipio</h1>
+
+    {{ include('admin/errors.html.twig') }}
+    {{ include('municipio/_form.html.twig', {'button_label': 'Actualizar', 'button_class': 'btn-warning', 'button_fa': 'fa-refresh'}) }}
+
+    {{ include('municipio/_delete_form.html.twig') }}
+
+    <a class="btn btn-secondary btn-block" href="{{ path('municipio_index') }}">Regresar</a>
+
+{% endblock %}

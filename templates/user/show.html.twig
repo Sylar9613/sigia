@@ -1,0 +1,5 @@
+{% if is_granted('ROLE_SUPER_ADMIN') or app.user.email==user.email %}
+    {{ include('user/show_permited.html.twig') }}
+{% else %}
+    {{ include('bundles/TwigBundle/Exception/error403.html.twig') }}
+{% endif %}

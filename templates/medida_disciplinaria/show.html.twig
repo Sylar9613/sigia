@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver medida {{ medida_disciplinarium.nombre }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('medida_disciplinaria_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Medida disciplinaria {{ medida_disciplinarium.nombre }}</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ medida_disciplinarium.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Categor&iacute;a</th>
+                <td>{{ medida_disciplinarium.categoria }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ medida_disciplinarium.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and medida_disciplinarium.activo==1 %}
+        <a href="{{ path('medida_disciplinaria_edit', { 'id': medida_disciplinarium.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('medida_disciplinaria/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

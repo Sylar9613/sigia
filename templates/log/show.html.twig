@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('log_index') }}">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    <h1>Log</h1>
+
+    <table class="table table-hover">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ log.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha del evento</th>
+                <td>{{ log.fecha ? log.fecha|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Direcci&oacute;n IP</th>
+                <td>{{ log.ip }}</td>
+            </tr>
+            <tr>
+                <th>Acci&oacute;n realizada</th>
+                <td>{{ log.accion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('log_index') }}" class="btn btn-secondary btn-block">Atr&aacute;s</a>
+
+{% endblock %}

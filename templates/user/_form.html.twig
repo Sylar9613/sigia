@@ -1,0 +1,292 @@
+{{ form_start(form) }}
+    {% if form_errors(form.email) %}
+        {#<div class="w3-container w3-section w3-red w3-animate-opacity flash-notice">
+            <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">X</span>
+            <h3>Error!</h3>#}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.email) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.username) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.username) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.plainPassword.first) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.plainPassword.first) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <div class="{{ field_visibility|default('visible') }}" onchange="pickAvatar()" style="text-align: center;" title="Elije un avatar">
+        <label style="text-align: center"><b>Avatar</b></label>
+        <br />
+        <label class="radio-inline" style="margin-right: 10px;cursor: pointer;">
+            <input class="collapse" type="radio" id="radio1" name="_avatar" value="avatar1.png" {% if app.user.avatar=='avatar1.png' %}checked{% endif %}>
+            &nbsp;<img id="av1" {% if app.user.avatar=='avatar1.png' %}class="w3-card-12 w3-round-xlarge"{% endif %}src="{{ asset('images/avatar1.png') }}" width="80" height="80">
+        </label>
+        <label class="radio-inline" style="margin-right: 10px;cursor: pointer;">
+            <input class="collapse" type="radio" id="radio2" name="_avatar" value="avatar2.png" {% if app.user.avatar=='avatar2.png' %}checked{% endif %}>
+            &nbsp;<img id="av2" {% if app.user.avatar=='avatar2.png' %}class="w3-card-12 w3-round-xlarge"{% endif %}src="{{ asset('images/avatar2.png') }}" width="80" height="80">
+        </label>
+        <label class="radio-inline" style="margin-right: 10px;cursor: pointer;">
+            <input class="collapse" type="radio" id="radio3" name="_avatar" value="avatar3.png" {% if app.user.avatar=='avatar3.png' %}checked{% endif %}>
+            &nbsp;<img id="av3" {% if app.user.avatar=='avatar3.png' %}class="w3-card-12 w3-round-xlarge"{% endif %}src="{{ asset('images/avatar3.png') }}" width="80" height="80">
+        </label>
+        <label class="radio-inline" style="margin-right: 10px;cursor: pointer;">
+            <input class="collapse" type="radio" id="radio4" name="_avatar" value="avatar4.png" {% if app.user.avatar=='avatar4.png' %}checked{% endif %}>
+            &nbsp;<img id="av4" {% if app.user.avatar=='avatar4.png' %}class="w3-card-12 w3-round-xlarge"{% endif %}src="{{ asset('images/avatar4.png') }}" width="80" height="80">
+        </label>
+        <label class="radio-inline" style="margin-right: 10px;cursor: pointer;">
+            <input class="collapse" type="radio" id="radio5" name="_avatar" value="avatar5.png" {% if app.user.avatar=='avatar5.png' %}checked{% endif %}>
+            &nbsp;<img id="av5" {% if app.user.avatar=='avatar5.png' %}class="w3-card-12 w3-round-xlarge"{% endif %} src="{{ asset('images/avatar5.png') }}" width="80" height="80">
+        </label>
+        <label class="radio-inline" style="margin-right: 10px;cursor: pointer;">
+            <input class="collapse" type="radio" id="radio6" name="_avatar" value="avatar6.png" {% if app.user.avatar=='avatar6.png' %}checked{% endif %}>
+            &nbsp;<img id="av6" {% if app.user.avatar=='avatar6.png' %}class="w3-card-12 w3-round-xlarge"{% endif %} src="{{ asset('images/avatar6.png') }}" width="80" height="80">
+        </label>
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <label class="radio-inline" style="margin-right: 10px;cursor: pointer;">
+                <input class="collapse" type="radio" id="radio7" name="_avatar" value="avatar7.jpg" {% if app.user.avatar=='avatar7.jpg' %}checked{% endif %}>
+                &nbsp;<img id="av7" {% if app.user.avatar=='avatar7.jpg' %}class="w3-card-12 w3-round-xlarge"{% endif %} src="{{ asset('images/avatar7.jpg') }}" width="80" height="80">
+            </label>
+        {% endif %}
+    </div>
+    <br/>
+    <div class="disabled {{ field_visibility|default('visible') }}" style="float: right;">
+        <div class="tool_tip">{{ form_label(form.email) }}
+            <span class="tooltip_text">Este es el email del usuario</span>
+        </div>
+        {{ form_widget(form.email) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-email', 'id_span':'span-email'}) }}
+    </div>
+    <div class="{{ field_visibility|default('visible') }}">
+        <div class="tool_tip">{{ form_label(form.username) }}
+            <span class="tooltip_text">Este es el nombre del usuario</span>
+        </div>
+        {{ form_widget(form.username) }}
+        {{ include('admin/validation_js.html.twig') }}
+    </div>
+    <div class="{{ role_visibility|default('visible') }}">
+        <br/>
+        {{ form_label(form.roles) }}
+        {{ form_widget(form.roles) }}
+    </div>
+    <br/>
+    <div style="float: right;">
+        <div class="tool_tip">{{ form_label(form.plainPassword.second) }}
+            <span class="tooltip_text">Repita la contraseña nuevamente</span>
+        </div>
+        {{ form_widget(form.plainPassword.second) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-password-second', 'id_span':'span-password-second'}) }}
+    </div>
+    <div>
+        <div class="tool_tip">{{ form_label(form.plainPassword.first) }}
+            <span class="tooltip_text">Esta es la contraseña del usuario</span>
+        </div>
+        {{ form_widget(form.plainPassword.first) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-password-first', 'id_span':'span-password-first', 'position':'position: relative;'}) }}
+    </div>
+    <br/>
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-6">
+                <label style="cursor: pointer;" for="show">
+                    <input tabindex="6" class="w3-check" onclick="changeText()" type="checkbox" id="show" name="_show">
+                    <span class="w3-validate">
+                         Mostrar contraseña
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="collapse" style="visibility: {{ visibility_label|default('collapse') }};">
+        {{ form_row(form.isActive) }}
+    </div>
+    {#{{ form_widget(form) }}#}
+    <br/>
+    <button tabindex="7" class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{{ form_end(form) }}
+<script>
+    //variables globales
+    var spanUsername = document.getElementById('span-username');
+    var inputUsername = document.getElementById('user_username');
+    var spanEmail = document.getElementById('span-email');
+    var inputEmail = document.getElementById('user_email');
+    var spanPasswordFirst = document.getElementById('span-password-first');
+    var inputPasswordFirst = document.getElementById('user_plainPassword_first');
+    var spanPasswordSecond = document.getElementById('span-password-second');
+    var inputPasswordSecond = document.getElementById('user_plainPassword_second');
+
+    //funciones de validacion
+    function validateUsername(){
+        if (inputUsername.checkValidity() === false) {
+            $('#req-username').removeClass('collapse');
+            spanUsername.innerHTML = inputUsername.validationMessage;
+            $('#user_username:invalid').css("border-bottom", "1px solid #dc3545");
+        }
+        else {
+            $('#req-username').addClass('collapse');
+            $('#user_username').css("border-bottom", "1px solid #808080");
+        }
+    }
+
+    function validateEmail(){
+        if (inputEmail.checkValidity() === false) {
+            $('#req-email').removeClass('collapse');
+            spanEmail.innerHTML = inputEmail.validationMessage;
+            $('#user_email:invalid').css("border-bottom", "1px solid #dc3545");
+        }
+        else {
+            $('#req-email').addClass('collapse');
+            $('#user_email').css("border-bottom", "1px solid #808080");
+        }
+        /*// SI escrito, NO VALIDO email
+        else if(!inputEmail.value.match(/^[^\s()<>@,;:\/]+@\w[\w\.-]+\.[a-z]{2,}$/i)){
+            $('#req-email').removeClass('collapse');
+            spanEmail.innerHTML = "Debe poner un email válido";
+            return false;
+        }*/
+    }
+
+    function validatePasswordForUsername() {
+        if(inputPasswordFirst.value === inputUsername.value){
+            $('#req-password-first').removeClass('collapse');
+            spanPasswordFirst.innerHTML = "La contraseña no puede ser igual al nombre de usuario";
+            $('#user_plainPassword_first').css("border-bottom", "1px solid #dc3545");
+            $('#user_plainPassword_first:invalid').css("border-bottom", "1px solid #dc3545");
+        }
+        else {
+            $('#req-password-first').addClass('collapse');
+            $('#user_plainPassword_first').css("border-bottom", "1px solid #808080");
+        }
+    }
+
+    function validatePassword1(){
+        if (inputPasswordFirst.checkValidity() === false) {
+            $('#req-password-first').removeClass('collapse');
+            spanPasswordFirst.innerHTML = inputPasswordFirst.validationMessage;
+            $('#user_plainPassword_first:invalid').css("border-bottom", "1px solid #dc3545");
+        }
+        else {
+            validatePasswordForUsername();
+        }
+    }
+
+    function validatePassword2(){
+        //NO son iguales las password
+        if(inputPasswordFirst.value !== inputPasswordSecond.value){
+            $('#req-password-second').removeClass('collapse');
+            spanPasswordSecond.innerHTML = "Las contraseñas deben ser iguales";
+            $('#user_plainPassword_second').css("border-bottom", "1px solid #dc3545");
+            $('#user_plainPassword_second:invalid').css("border-bottom", "1px solid #dc3545");
+        }
+        // SI son iguales
+        else{
+            $('#req-password-second').addClass('collapse');
+            $('#user_plainPassword_second').css("border-bottom", "1px solid #808080");
+        }
+    }
+</script>
+<script>
+    var variable = 'hide';
+    function changeText() {
+        if(variable==='hide')
+        {
+            variable='see';
+            $('#user_plainPassword_first').attr("type","text");
+            $('#user_plainPassword_second').attr("type","text");
+        }
+        else
+        {
+            variable='hide';
+            $('#user_plainPassword_first').attr("type","password");
+            $('#user_plainPassword_second').attr("type","password");
+        }
+        //alert(variable);
+    }
+</script>
+<script>
+    function pickAvatar() {
+        var radio1 = document.getElementById('radio1');
+        var radio2 = document.getElementById('radio2');
+        var radio3 = document.getElementById('radio3');
+        var radio4 = document.getElementById('radio4');
+        var radio5 = document.getElementById('radio5');
+        var radio6 = document.getElementById('radio6');
+        var radio7 = document.getElementById('radio7');
+
+        if (radio1.checked){
+            $('#av1').addClass('w3-round-xlarge w3-card-12');
+            $('#av2').removeClass('w3-round-xlarge w3-card-12');
+            $('#av3').removeClass('w3-round-xlarge w3-card-12');
+            $('#av4').removeClass('w3-round-xlarge w3-card-12');
+            $('#av5').removeClass('w3-round-xlarge w3-card-12');
+            $('#av6').removeClass('w3-round-xlarge w3-card-12');
+            $('#av7').removeClass('w3-round-xlarge w3-card-12');
+        }
+        if (radio2.checked){
+            $('#av1').removeClass('w3-round-xlarge w3-card-12');
+            $('#av2').addClass('w3-round-xlarge w3-card-12');
+            $('#av3').removeClass('w3-round-xlarge w3-card-12');
+            $('#av4').removeClass('w3-round-xlarge w3-card-12');
+            $('#av5').removeClass('w3-round-xlarge w3-card-12');
+            $('#av6').removeClass('w3-round-xlarge w3-card-12');
+            $('#av7').removeClass('w3-round-xlarge w3-card-12');
+        }
+        if (radio3.checked){
+            $('#av1').removeClass('w3-round-xlarge w3-card-12');
+            $('#av2').removeClass('w3-round-xlarge w3-card-12');
+            $('#av3').addClass('w3-round-xlarge w3-card-12');
+            $('#av4').removeClass('w3-round-xlarge w3-card-12');
+            $('#av5').removeClass('w3-round-xlarge w3-card-12');
+            $('#av6').removeClass('w3-round-xlarge w3-card-12');
+            $('#av7').removeClass('w3-round-xlarge w3-card-12');
+        }
+        if (radio4.checked){
+            $('#av1').removeClass('w3-round-xlarge w3-card-12');
+            $('#av2').removeClass('w3-round-xlarge w3-card-12');
+            $('#av3').removeClass('w3-round-xlarge w3-card-12');
+            $('#av4').addClass('w3-round-xlarge w3-card-12');
+            $('#av5').removeClass('w3-round-xlarge w3-card-12');
+            $('#av6').removeClass('w3-round-xlarge w3-card-12');
+            $('#av7').removeClass('w3-round-xlarge w3-card-12');
+        }
+        if (radio5.checked){
+            $('#av1').removeClass('w3-round-xlarge w3-card-12');
+            $('#av2').removeClass('w3-round-xlarge w3-card-12');
+            $('#av3').removeClass('w3-round-xlarge w3-card-12');
+            $('#av4').removeClass('w3-round-xlarge w3-card-12');
+            $('#av5').addClass('w3-round-xlarge w3-card-12');
+            $('#av6').removeClass('w3-round-xlarge w3-card-12');
+            $('#av7').removeClass('w3-round-xlarge w3-card-12');
+        }
+        if (radio6.checked){
+            $('#av1').removeClass('w3-round-xlarge w3-card-12');
+            $('#av2').removeClass('w3-round-xlarge w3-card-12');
+            $('#av3').removeClass('w3-round-xlarge w3-card-12');
+            $('#av4').removeClass('w3-round-xlarge w3-card-12');
+            $('#av5').removeClass('w3-round-xlarge w3-card-12');
+            $('#av6').addClass('w3-round-xlarge w3-card-12');
+            $('#av7').removeClass('w3-round-xlarge w3-card-12');
+        }
+        if (radio7.checked){
+            $('#av1').removeClass('w3-round-xlarge w3-card-12');
+            $('#av2').removeClass('w3-round-xlarge w3-card-12');
+            $('#av3').removeClass('w3-round-xlarge w3-card-12');
+            $('#av4').removeClass('w3-round-xlarge w3-card-12');
+            $('#av5').removeClass('w3-round-xlarge w3-card-12');
+            $('#av6').removeClass('w3-round-xlarge w3-card-12');
+            $('#av7').addClass('w3-round-xlarge w3-card-12');
+        }
+    }
+</script>

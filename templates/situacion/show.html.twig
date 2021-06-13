@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver situaci&oacute;n {{ situacion.nombre }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('situacion_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Situaci&oacute;n {{ situacion.nombre }}</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ situacion.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>Nombre</th>
+                <td>{{ situacion.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ situacion.fecha ? situacion.fecha|date('Y-m-d') : '-' }}</td>
+            </tr>
+            <tr>
+                <th>Emisor</th>
+                <td>{{ situacion.emisor }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and situacion.activo==1 %}
+        <a href="{{ path('situacion_edit', { 'id': situacion.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('situacion/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

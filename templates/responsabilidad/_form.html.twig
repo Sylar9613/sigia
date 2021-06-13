@@ -1,0 +1,70 @@
+{{ form_start(form) }}
+    {% if form_errors(form.medidasTotal) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.medidasTotal) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.medidasPendientes) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.medidasPendientes) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    {{ form_row(form.implicado) }}
+    {{ form_row(form.medidaDisciplinaria) }}
+    {{ form_row(form.medidasPendientes) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-mp', 'id_span':'span-mp', 'width':'230px;'}) }}
+    {{ form_row(form.medidasTotal) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-mt', 'id_span':'span-mt', 'width':'230px;'}) }}
+
+    {#<div class="float-right">
+        {{ form_row(form.implicado) }}
+    </div>
+    {{ form_row(form.medidaDisciplinaria) }}
+    <br/>
+    <div class="float-right" style="margin-right: 590px;">
+        {{ form_row(form.medidasPendientes) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-mp', 'id_span':'span-mp', 'width':'230px;'}) }}
+    </div>
+    {{ form_row(form.medidasTotal) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-mt', 'id_span':'span-mt', 'width':'230px;'}) }}#}
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanMt = document.getElementById('span-mt');
+            var inputMt = document.getElementById("responsabilidad_medidasTotal");
+            if (inputMt.checkValidity() === false) {
+                $('#req-mt').removeClass('collapse');
+                spanMt.innerHTML = inputMt.validationMessage;
+                $('#responsabilidad_medidasTotal:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-mt').addClass('collapse');
+                $('#responsabilidad_medidasTotal').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanMp = document.getElementById('span-mp');
+            var inputMp = document.getElementById("responsabilidad_medidasPendientes");
+            if (inputMp.checkValidity() === false) {
+                $('#req-mp').removeClass('collapse');
+                spanMp.innerHTML = inputMp.validationMessage;
+                $('#responsabilidad_medidasPendientes:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-mp').addClass('collapse');
+                $('#responsabilidad_medidasPendientes').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

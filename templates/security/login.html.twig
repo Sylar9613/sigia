@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>Ingresar</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('icon/glyphicons-45-keys.png') }}" />
+        {{ include('admin/stylesheets.html.twig') }}
+        <link href="{{ asset('css/datepicker.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/prettify.css') }}" rel="stylesheet">
+    </head>
+    <body onload="myFunction()" class="fixed-nav sticky-footer bg-dark" id="page-top">
+        <noscript>Su navegador no soporta Javascript o tiene esta funci&oacute;n desactivada</noscript>
+        <div id="loader"></div>
+        <div style="display:none;" id="myDiv" class="animate-bottom">
+            <div style="width: 100%; height: auto;" id="main">
+                {{ include('admin/congrats.html.twig') }}
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="card card-login mx-auto mt-2">
+                            <div style="background: url('{{ asset('images/apple.jpg') }}'); background-size: cover; height: 100px; font-weight: bold;" class="card-header text-white">
+                                {{ 'iniciar sesión'|upper }}{#Log in#}
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ path('login') }}" method="post">
+                                    {% if error %}
+                                        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                    {% endif %}
+
+                                    {% if app.user %}
+                                        <div class="mb-3">
+                                            {#You are logged in as#}
+                                            Usted está autenticado como {{ app.user.username }},
+                                            <a href="{{ path('logout') }}">Salir{#Logout#}</a> /
+                                            <a href="{{ path('homepage') }}">Atr&aacute;s</a>
+                                        </div>
+                                    {% endif %}
+
+                                    <h4 class="text-center mb-3 font-weight-normal">Por favor autent&iacute;quese{#Please sign in#}</h4>
+                                    <div class="form-group">
+                                        <label class="w3-label w3-validate" for="inputUsername" {#class="sr-only"#}><i class="fa fa-fw fa-user-circle"></i>Usuario:{#Username#}</label>
+                                        <input type="text" value="{{ last_username }}" name="_username" id="inputUsername" class="form-control form-control-inline" placeholder="Usuario o email{#Username#}" required autofocus autocomplete="off"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="w3-label w3-validate" for="inputPassword" {#class="sr-only"#}><i class="fa fa-fw fa-lock"></i>Contrase&ntilde;a:{#Password#}</label>
+                                        <br/>
+                                        <div class="input-append" style="width: 100%;">
+                                            <input style="width: 90%; padding-left: 10px; font-size: 1rem;" type="password" name="_password" id="inputPassword" class="form-control form-control-inline my span2" placeholder="Contraseña" required autocomplete="off"/>
+                                            <span class="add-on" onclick="seePassword()" title="Mostrar/Ocultar contraseña"><i id="bello" style="font-size: 20px;" class="fa fa-fw fa-eye-slash"></i></span>
+                                        </div>
+                                    </div>
+
+
+                                    <input type="hidden" name="_csrf_token"
+                                           value="{{ csrf_token('authenticate') }}"
+                                    >
+                                    <input type="hidden" name="_target_path" value="{{ path('homepage') }}" />
+
+                                    <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-md-6">
+                                                <label style="cursor: pointer;" for="remember_me">
+                                                    <input class="w3-check" type="checkbox" id="remember_me" name="_remember_me" checked>
+                                                    <span class="w3-validate">Recu&eacute;rdame</span>{#Remember me#}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                        Entrar{#Sign in#}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        var variable = 'hide';
+                        function seePassword() {
+                            if(variable==='hide')
+                            {
+                                variable='see';
+                                $('#bello').toggleClass('fa-eye-slash fa-eye');
+                                $('#inputPassword').attr("type","text");
+                            }
+                            else
+                            {
+                                variable='hide';
+                                $('#bello').toggleClass('fa-eye fa-eye-slash');
+                                $('#inputPassword').attr("type","password");
+                            }
+                            //alert(variable);
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{ asset('jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{{ asset('jquery-easing/jquery.easing.min.js') }}"></script>
+        <script src="{{ asset('js/javascript.js') }}"></script>
+    </body>
+</html>

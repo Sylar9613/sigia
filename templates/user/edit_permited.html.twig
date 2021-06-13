@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar usuario{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        {% if is_granted('ROLE_SUPER_ADMIN') %}
+            <li class="breadcrumb-item">
+                <a class="normal" href="{{ path('user_index') }}">{{ routes[0] }}</a>
+            </li>
+        {% else %}
+            <li class="breadcrumb-item">{{ routes[0] }}</li>
+        {% endif %}
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    <h1>Editar usuario</h1>
+    {{ include('admin/errors.html.twig') }}
+    {% if is_granted('ROLE_SUPER_ADMIN') %}
+        {{ include('user/_form.html.twig', {'button_label': 'Actualizar', 'button_class': 'btn-warning', 'button_fa': 'fa-refresh'}) }}
+    {% else %}
+        {{ include('user/_form.html.twig', {'button_label': 'Actualizar', 'button_class': 'btn-warning', 'button_fa': 'fa-refresh', 'role_visibility': 'collapse'}) }}
+    {% endif %}
+{% endblock %}

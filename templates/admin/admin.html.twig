@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}Admin page{% endblock %}
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item activo">{{ routes[0] }}</li>
+    </ol>
+    <a href="{{ path('salva') }}" style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-primary-angular"><span><i class="fa fa-fw fa-save"></i>&nbsp;Salvar BD</span></a>
+    <br/><br/>
+    {{ include('admin/errors.html.twig') }}
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Todas las salvas
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table {#table-bordered table-striped #}table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                    <tr class="blue-grey">
+                        <th>Nombre del archivo</th>
+                        <th>Fecha</th>
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for data in datos %}
+                        <tr>
+                            <td><i class="fa fa-fw fa-database"></i> {{ data.databaseFilename }}</td>
+                            <td>{{ data.date ? data.date|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ asset('uploads/database/' ~ data.databaseFilename) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                <a class="btn btn-sm btn-danger" href="{{ path('delete_database', {'id': data.id}) }}"><i class="fa fa-fw fa-trash-o"></i> Eliminar</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No se encontraron registros</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

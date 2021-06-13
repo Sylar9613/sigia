@@ -1,0 +1,12 @@
+{# read and display just one flash message type #}
+{% for message in app.flashes('error') %}
+    {#<div class="w3-container w3-section w3-red w3-animate-opacity flash-notice">
+        <span onclick="this.parentElement.style.display='none'" class="w3-closebtn">X</span>
+        <h3>Error!</h3>
+        <p>{{ message }}</p>
+    </div>#}
+    <div class="alert alert-danger fade in">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error! </strong>{{ message }}
+    </div>
+{% endfor %}

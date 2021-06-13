@@ -1,0 +1,57 @@
+{{ form_start(form) }}
+    {% if form_errors(form.plazas) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.plazas) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.entidad) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.entidad) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.cargo) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.cargo) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    {{ form_label(form.plazas) }}
+    {{ form_widget(form.plazas) }}
+    {{ include('admin/validation_js.html.twig', {'id_req':'req-plazas', 'id_span':'span-plazas', 'width':'310px'}) }}
+    <br/>
+    <div style="float: right;">
+        {{ form_label(form.cargo) }}
+        {{ form_widget(form.cargo) }}
+    </div>
+    {{ form_label(form.entidad) }}
+    {{ form_widget(form.entidad) }}
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+
+<script>
+    //variables globales
+    var spanPlazas = document.getElementById('span-plazas');
+    var inputPlazas = document.getElementById('plaza_plazas');
+
+    //funciones de validacion
+    function validatePlazas(){
+        if (inputPlazas.checkValidity() === false) {
+            $('#req-plazas').removeClass('collapse');
+            spanPlazas.innerHTML = inputPlazas.validationMessage;
+            $('#plaza_plazas:invalid').css("border", "1px solid #dc3545");
+        }
+        else {
+            $('#req-plazas').addClass('collapse');
+            $('#plaza_plazas').css("border", "1px solid #ced4da");
+        }
+    }
+</script>

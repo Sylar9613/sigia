@@ -1,0 +1,32 @@
+{% if user.isUser(app.user) %}
+    {% extends 'base.html.twig' %}
+
+    {% block title %}Usuario{% endblock %}
+
+    {% block body %}
+            <br/>
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                        <li class="breadcrumb-item">
+                                <a class="normal" href="{{ path('user_index') }}">{{ routes[0] }}</a>
+                        </li>
+                {% else %}
+                        <li class="breadcrumb-item">{{ routes[0] }}</li>
+                {% endif %}
+                    <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+            </ol>
+            <h1>Cambiar roles</h1>
+            {{ include('admin/errors.html.twig') }}
+            {{ form_start(form) }}
+                <div>
+                    <br/>
+                    {{ form_label(form.roles) }}
+                    {{ form_widget(form.roles) }}
+                </div>
+                <br/><br/>
+                <button type="submit" tabindex="7" class="btn btn-warning btn-block text-white"><i class="fa fa-fw fa-edit"></i>&nbsp;Actualizar</button>
+                <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+            {{ form_end(form) }}
+    {% endblock %}
+{% endif %}

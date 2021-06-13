@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear nueva situaci&oacute;n del PHD{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('situacion_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Crear nueva situaci&oacute;n del PHD</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('situacion/_form.html.twig') }}
+    <button style="margin-top: 8px;" onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

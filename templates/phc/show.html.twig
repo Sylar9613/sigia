@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver P.H.C. &numero;{{ phc.numero }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('phc_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>P.H.C.</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ phc.id }}</td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>N&uacute;mero</th>
+                <td>{{ phc.numero }}</td>
+            </tr>
+            <tr class="{% if phc.accionControl %}visible{% else %}collapse{% endif %}">
+                <th>Orden de trabajo (Acci&oacute;n de control)</th>
+                <td>{{ phc.accionControl ? phc.accionControl.ordenTrabajo : '-' }}</td>
+            </tr>
+            <tr>
+                <th>Categor&iacute;a</th>
+                <td>{{ phc.categoria }}</td>
+            </tr>
+            <tr>
+                <th>Provincia</th>
+                <td>{{ phc.provincia }}</td>
+            </tr>
+            <tr>
+                <th>Fuente</th>
+                <td>{{ phc.fuente }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de detecci&oacute;n</th>
+                <td>{{ phc.fechaDeteccion ? phc.fechaDeteccion|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de ocurrencia</th>
+                <td>{{ phc.fechaOcurrencia ? phc.fechaOcurrencia|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Resumen</th>
+                <td>{{ phc.resumen ? phc.resumen : '-' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and phc.activo==1 %}
+        <a href="{{ path('phc_edit', { 'id': phc.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('phc/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

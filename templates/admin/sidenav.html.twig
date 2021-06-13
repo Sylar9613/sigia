@@ -1,0 +1,181 @@
+<!--sidenav-->
+<nav style="background: url('{{ asset('images/bandera.png') }}') no-repeat; background-size: cover;" id="mySidenav" class="sidenav bg-dark text-white">
+    <a title="Cerrar barra lateral" href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a id="info" style="font-size: 16px;cursor: help;" data-toggle="modal" data-target="#infoModal"><i class="fa fa-fw fa-info-circle"></i>&nbsp;Informaci&oacute;n</a>
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+        <a class="nav-link" style="font-size: 16px;cursor: hand;" href="{{ path('admin') }}"><i class="fa fa-fw fa-database"></i>&nbsp;Database</a>
+    {% endif %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <li class="nav-item" style="list-style-type:none;">
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePlanificacion" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-archive"></i>&nbsp;Planificaci&oacute;n</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePlanificacion">
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDanos" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Da&ntilde;os</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseDanos">
+                    <a style="font-size: 16px;" href="{{ path('phd_index') }}">P.H.D.</a>
+                </ul>
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccion" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Acciones</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseAccion">
+                    <a style="font-size: 16px;" href="{{ path('accion_control_index') }}">Acci&oacute;n de control</a>
+                    {#<a style="font-size: 16px;" href="{{ path('phc_index') }}">Planes</a>#}
+                    <a style="font-size: 16px;" href="{{ path('particularidad_index') }}">Particularidades</a>
+                </ul>
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseParametros" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Par&aacute;metros</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseParametros">
+                    <a style="font-size: 16px;" href="{{ path('causa_condicion_index') }}">Causa&nbsp;&frasl;&nbsp;Condici&oacute;n</a>
+                    <a style="font-size: 16px;" href="{{ path('combustible_index') }}">Combustible</a>
+                    <a style="font-size: 16px;" href="{{ path('situacion_index') }}">Situaciones</a>
+                    <a style="font-size: 16px;" href="{{ path('tipo_accion_index') }}">Tipos de acciones</a>
+                    <a style="font-size: 16px;" href="{{ path('medida_disciplinaria_index') }}">Medidas disciplinarias</a>
+                    <a style="font-size: 16px;" href="{{ path('implicado_index') }}">Implicados</a>
+                </ul>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSistemas" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-map-marker"></i>&nbsp;Ubicaci&oacute;n</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseSistemas">
+                <a style="font-size: 16px;" href="{{ path('municipio_index') }}">Municipio</a>
+                <a style="font-size: 16px;" href="{{ path('localidad_index') }}">Localidad</a>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseClasificadores" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-bank"></i>&nbsp;Empleos</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseClasificadores">
+                <a style="font-size: 16px;" href="{{ path('organismo_index') }}">Organismos</a>
+                <a style="font-size: 16px;" href="{{ path('osde_index') }}">OSDE</a>
+                <a style="font-size: 16px;" href="{{ path('entidad_index') }}">Entidad</a>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePersonal" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-comments"></i>&nbsp;Personal</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePersonal">
+                <a style="font-size: 16px;" href="{{ path('plaza_index') }}">Plazas</a>
+                <a style="font-size: 16px;" href="{{ path('nivel_index') }}">Nivel escolar</a>
+                <a style="font-size: 16px;" href="{{ path('cargo_index') }}">Cargo</a>
+                <a style="font-size: 16px;" href="{{ path('auditor_index') }}">Auditor</a>
+            </ul>
+        </li>
+    {% elseif is_granted("ROLE_JURIDICO") %}
+        <li class="nav-item" style="list-style-type:none;">
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePlanificacion" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-archive"></i>&nbsp;Planificaci&oacute;n</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePlanificacion">
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDanos" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Da&ntilde;os</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseDanos">
+                    <a style="font-size: 16px;" href="{{ path('phd_index') }}">P.H.D.</a>
+                </ul>
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccion" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Acciones</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseAccion">
+                    <a style="font-size: 16px;" href="{{ path('accion_control_index') }}">Acci&oacute;n de control</a>
+                </ul>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePersonal" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-comments"></i>&nbsp;Personal</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePersonal">
+                <a style="font-size: 16px;" href="{{ path('auditor_index') }}">Auditor</a>
+            </ul>
+        </li>
+    {% elseif is_granted("ROLE_ATP") %}
+        <li class="nav-item" style="list-style-type:none;">
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePlanificacion" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-archive"></i>&nbsp;Planificaci&oacute;n</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePlanificacion">
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDanos" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Da&ntilde;os</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseDanos">
+                    <a style="font-size: 16px;" href="{{ path('phc_index') }}">P.H.C.</a>
+                    <a style="font-size: 16px;" href="{{ path('hc_index') }}">Hecho de corrupci&oacute;n</a>
+                    <a style="font-size: 16px;" href="{{ path('responsabilidad_index') }}">Responsabilidad</a>
+                </ul>
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseParametros" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Par&aacute;metros</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseParametros">
+                    <a style="font-size: 16px;" href="{{ path('medida_disciplinaria_index') }}">Medidas disciplinarias</a>
+                    <a style="font-size: 16px;" href="{{ path('implicado_index') }}">Implicados</a>
+                </ul>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+        </li>
+    {% elseif is_granted("ROLE_SUPERVISOR") %}
+        <a style="font-size: 16px;cursor: help;" href="{{ path('log_index') }}"><i class="fa fa-fw fa-list-ul"></i>&nbsp;Logs</a>
+        <li class="nav-item" style="list-style-type:none;">
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePlanificacion" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-archive"></i>&nbsp;Planificaci&oacute;n</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePlanificacion">
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseDanos" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Da&ntilde;os</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseDanos">
+                    <a style="font-size: 16px;" href="{{ path('phd_index') }}">P.H.D.</a>
+                    <a style="font-size: 16px;" href="{{ path('phc_index') }}">P.H.C.</a>
+                    <a style="font-size: 16px;" href="{{ path('hc_index') }}">Hecho de corrupci&oacute;n</a>
+                </ul>
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccion" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Acciones</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseAccion">
+                    <a style="font-size: 16px;" href="{{ path('accion_control_index') }}">Acci&oacute;n de control</a>
+                </ul>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePersonal" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-comments"></i>&nbsp;Personal</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePersonal">
+                <a style="font-size: 16px;" href="{{ path('plaza_index') }}">Plazas</a>
+                <a style="font-size: 16px;" href="{{ path('auditor_index') }}">Auditor</a>
+            </ul>
+        </li>
+    {% else %}
+        <li class="nav-item" style="list-style-type:none;">
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePlanificacion" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-archive"></i>&nbsp;Planificaci&oacute;n</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePlanificacion">
+                <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseAccion" data-parent="#exampleAccordion">
+                    <i class="nav-link-text">Acciones</i>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseAccion">
+                    <a style="font-size: 16px;" href="{{ path('accion_control_index') }}">Acci&oacute;n de control</a>
+                </ul>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseClasificadores" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-bank"></i>&nbsp;Empleos</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseClasificadores">
+                <a style="font-size: 16px;" href="{{ path('entidad_index') }}">Entidad</a>
+                <hr style="width:85%; margin:6px;"/>
+            </ul>
+            <a style="font-size: 16px;" class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsePersonal" data-parent="#exampleAccordion">
+                <i class="nav-link-text"><i class="fa fa-fw fa-comments"></i>&nbsp;Personal</i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapsePersonal">
+                <a style="font-size: 16px;" href="{{ path('plaza_index') }}">Plazas</a>
+                <a style="font-size: 16px;" href="{{ path('auditor_index') }}">Auditor</a>
+            </ul>
+        </li>
+    {% endif %}
+    {#<a href="content/direccion.html">{{ app.session.get('path') }}</a>#}
+</nav>

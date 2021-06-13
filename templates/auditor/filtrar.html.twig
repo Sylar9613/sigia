@@ -1,0 +1,38 @@
+{% extends 'auditor/index.html.twig' %}
+{% block cursos %}{% endblock %}
+{% block tbody %}
+    <tbody>
+    {% for auditor in auditors %}
+        <tr>
+            {#{% if is_granted('ROLE_SUPER_ADMIN') %}
+                <td><a href="{{ path('auditor_show', { 'id': auditor.id }) }}">{{ auditor.id }}</a></td>
+                <td>{{ auditor.edad }}</td>
+            {% else %}#}
+                <td><a href="{{ path('auditor_show', { 'id': auditor.id }) }}">{{ auditor.edad }}</a></td>
+            {#{% endif %}#}
+            <td>{{ auditor.sexo }}</td>
+            {#<td>{% if auditor.activo %}<i class="fa fa-fw fa-check-square-o"></i>{% else %}<i class="fa fa-fw fa-square-o"></i>{% endif %}</td>#}
+            <td>{{ auditor.nombres }}</td>
+            <td>{{ auditor.apellidos }}</td>
+            <td>{{ auditor.ci }}</td>
+            <td>{{ auditor.localidad }}</td>
+            <td>{{ auditor.entidad }}</td>
+            <td>{{ auditor.cargo }}</td>
+            {#<td>{{ auditor.nivel }}</td>#}
+            {#<td>{{ auditor.direccion }}</td>#}
+            {#<td>{{ auditor.telefono }}</td>
+            <td>{{ auditor.correo }}</td>#}
+            {#<td>{% if auditor.fea %}<i class="fa fa-fw fa-check-square-o"></i>{% else %}<i class="fa fa-fw fa-square-o"></i>{% endif %}</td>#}
+            <td>{{ auditor.rna }}</td>
+            {#<td>{% if auditor.fechaRna %}{{ auditor.fechaRna|date('Y-m-d') }}{% endif %}</td>#}
+            <td>
+                <a class="btn btn-sm blue-grey" href="{{ path('auditor_show', { 'id': auditor.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    &nbsp;
+                    <a class="btn btn-sm blue-grey" href="{{ path('auditor_edit', { 'id': auditor.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+{% endblock %}

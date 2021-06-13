@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entidades{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[1] }}</li>
+    </ol>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;" class="btn button bg-primary-angular" href="{{ path('entidad_new') }}"><span><i class="fa fa-fw fa-file-o"></i>Nueva</span></a>
+    {% endif %}
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <label style="float: right">Cant. elementos: <span class="badge badge-primary badge-pill">{{ entidads|length }}</span></label>
+
+    <hr/>
+    <form method="post" action="{{ path('ent_filter') }}">
+        <input type="hidden" name="user" value="{{ app.user.id }}"/>
+        <div class="form-group">
+            <button style="margin-top: 28px;" type="submit" class="btn btn-success">
+                <i class="fa fa-fw fa-filter"></i>&nbsp;Filtrar</button>
+            <div style="width: 30%;float: left;">
+                <label><b>Organismos</b></label>
+                <select name="filtrar_org" class="form-control" style="width: 91%;">
+                    <option value="todos">Todos</option>
+                    {% for a in organismos %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="width: 30%;float: left;">
+                <label><b>Osdes</b></label>
+                <select name="filtrar_osde" class="form-control" style="width: 91%;">
+                    <option value="todas">Todas</option>
+                    {% for a in osdes %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="text-align: center;float: left;width: 20%; margin-right: 25px; margin-top: 10px;">
+                <label style="text-align: center"><b>A.I.</b></label>
+                <br />
+                <label class="radio-inline" style="margin-right: 10px;">
+                    <input type="radio" name="filtrar_ai" value="yes">Si
+                </label>
+                <label class="radio-inline" style="margin-right: 10px;">
+                    <input type="radio" name="filtrar_ai" value="no">No
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="filtrar_ai" value="todos" checked>Todos
+                </label>
+            </div>
+        </div>
+    </form>
+    <hr/>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Todas las entidades
+        </div>
+        <div class="card-body">
+            <br/>
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table {#table-bordered table-striped #}table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                    <tr class="blue-grey">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Id</th>
+                        {% endif %}
+                        <th>Nombre</th>
+                        <th>Osde</th>
+                        <th>AI</th>
+                        <th>NIT</th>
+                        <th>REEUP</th>
+                        <th>UAI</th>
+                        <th>UCAI</th>
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr class="blue-grey">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <th>Id</th>
+                        {% endif %}
+                        <th>Nombre</th>
+                        <th>Osde</th>
+                        <th>AI</th>
+                        <th>NIT</th>
+                        <th>REEUP</th>
+                        <th>UAI</th>
+                        <th>UCAI</th>
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for entidad in entidads if entidad.activo==1 or is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('entidad_show', { 'id': entidad.id }) }}">{{ entidad.id }}</a>
+                                </td>
+                                <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>{{ entidad.nombre }}</td>
+                            {% else %}
+                                <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('entidad_show', { 'id': entidad.id }) }}">{{ entidad.nombre }}</a>
+                                </td>
+                            {% endif %}
+                            <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>{{ entidad.osde.nombre }}</td>
+                            <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>{{ entidad.ai ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+                            <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>{{ entidad.nit }}</td>
+                            <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>{{ entidad.reeup }}</td>
+                            <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>{{ entidad.uai ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+                            <td{% if entidad.activo==0 %} class="admin-disabled" {% endif %}>{{ entidad.ucai ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('entidad_show', { 'id': entidad.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% if entidad.activo==0 %}
+                                        &nbsp;<a class="btn btn-sm bg-primary-angular" href="{{ path('entidad_activate', {'id': entidad.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                    {% else %}
+                                        &nbsp;<a class="btn btn-sm blue-grey" href="{{ path('entidad_edit', { 'id': entidad.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9">No se encontr&oacute; ning&uacute;n registro</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {{ include('admin/success.html.twig') }}
+{% endblock %}
+

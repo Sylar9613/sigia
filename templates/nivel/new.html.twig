@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crear nuevo nivel escolar{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('nivel_index') }}">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    <h1>Crear nuevo nivel escolar</h1>
+    {{ include('admin/errors.html.twig') }}
+    {{ include('nivel/_form.html.twig') }}
+
+    <a href="{{ path('nivel_index') }}" class="btn btn-secondary btn-block" style="margin-top: 5px;">Atr&aacute;s</a>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Todos los usuarios{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item activo">{{ routes[0] }}</li>
+    </ol>
+    <a href="{{ path('user_new') }}" style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-primary-angular"><span><i class="fa fa-fw fa-file-o"></i>Nuevo</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <br/><br/>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Usuarios
+        </div>
+        <div class="card-body">
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table {#table-bordered table-striped #}table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                    <tr class="blue-grey">
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Roles</th>
+                        <th>Activo</th>
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr class="blue-grey">
+                        <th>Id</th>
+                        <th>Email</th>
+                        <th>Username</th>
+                        <th>Roles</th>
+                        <th>Activo</th>
+                        <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td{% if user.isActive==0 %} class="admin-disabled" {% endif %}>{{ user.id }}</td>
+                            <td{% if user.isActive==0 %} class="admin-disabled" {% endif %}>{{ user.email }}</td>
+                            <td{% if user.isActive==0 %} class="admin-disabled" {% endif %}>{{ user.username }}</td>
+                            <td{% if user.isActive==0 %} class="admin-disabled" {% endif %}>{{ user.roles ? user.roles|join(', ') : '' }}</td>
+                            <td{% if user.isActive==0 %} class="admin-disabled" {% endif %}>{{ user.isActive ? '<i class="fa fa-fw fa-check-square-o"></i>' : '<i class="fa fa-fw fa-square-o"></i>' }}</td>
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('user_show', {'id': user.id}) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_SUPER_ADMIN') and user.id==app.user.id %}
+                                    <a class="btn btn-sm blue-grey" href="{{ path('user_edit', {'id': user.id}) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                {% elseif user.isActive==0 %}
+                                    <a class="btn btn-sm blue-grey" href="{{ path('user_activate', {'id': user.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                {% else %}
+                                    {{ include('user/_delete_form.html.twig', {'button_class': 'btn-sm', 'button_style': 'margin-top: 0; margin-bottom: 0;'}) }}
+                                    {#<a class="btn btn-sm btn-danger" href="{{ path('user_deactivate', {'id': user.id}) }}"><i class="fa fa-fw fa-trash"></i> Eliminar</a>#}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

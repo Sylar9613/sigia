@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ver H.C. &numero;{{ hc.numeroExpediente }}{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">{{ routes[0] }}</li>
+        <li class="breadcrumb-item">{{ routes[1] }}</li>
+        <li class="breadcrumb-item">
+            <a class="normal" href="{{ path('hc_index') }}">{{ routes[2] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[3] }}</li>
+    </ol>
+    <h1>Hecho de Corrupci&oacute;n Administrativa (H.C.)</h1>
+    {{ include('admin/errors.html.twig') }}
+    <table class="table table-hover">
+        <tbody>
+        {% if is_granted('ROLE_ADMIN') %}
+            <tr>
+                <th>Id</th>
+                <td>{{ hc.id }}</td>
+            </tr>
+        {% endif %}
+        <tr>
+            <th>N&uacute;mero de expediente</th>
+            <td>{{ hc.numeroExpediente }}</td>
+        </tr>
+        <tr>
+            <th>P.H.C.</th>
+            <td>{{ hc.phc.numero }}</td>
+        </tr>
+        <tr>
+            <th>Categor&iacute;a</th>
+            <td>{{ hc.phc.categoria }}</td>
+        </tr>
+        <tr>
+            <th>Fuente del hecho</th>
+            <td>{{ hc.phc.fuente }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de detecci&oacute;n</th>
+            <td>{{ hc.phc.fechaDeteccion ? hc.phc.fechaDeteccion|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de ocurrencia</th>
+            <td>{{ hc.phc.fechaOcurrencia ? hc.phc.fechaOcurrencia|date('Y-m-d') : '' }}</td>
+        </tr>
+        <tr>
+            <th>Municipio</th>
+            <td>{{ hc.phc.municipio.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Entidad</th>
+            <td>{{ hc.phc.entidad.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Objeto social de la entidad</th>
+            <td>{{ hc.objetoSocialEntidad }}</td>
+        </tr>
+        <tr>
+            <th>Total de implicados de la Entidad</th>
+            <td>{{ hc.totalImplicadosEntidad }}</td>
+        </tr>
+        <tr>
+            <th>Total de Implicados de otras entidades</th>
+            <td>{{ hc.totalImplicadosOtras }}</td>
+        </tr>
+        <tr>
+            <th>Afectaci&oacute;n econ&oacute;mica en CUP</th>
+            <td>{{ hc.afectacionEconomicaCUP }}</td>
+        </tr>
+        <tr>
+            <th>Recuperado en CUP</th>
+            <td>{{ hc.recuperadoCUP }}</td>
+        </tr>
+
+        <tr>
+            <th>Relaci&oacute;n de los implicados</th>
+            <td>
+                {{ hc.allImplicados|join(', ') }}
+                {#{% for implicado in phd.implicados %}
+                    {{ implicado.nombre|join(', ') }}
+                {% endfor %}#}
+            </td>
+        </tr>
+        <tr>
+            <th>Resumen del hecho</th>
+            <td>{{ hc.resumen }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN') and hc.activo==1 %}
+        <a href="{{ path('hc_edit', { 'id': hc.id }) }}"
+           class="btn btn-warning text-white btn-block"><i class="fa fa-fw fa-edit"></i>&nbsp;Editar</a>
+        {{ include('hc/_delete_form.html.twig') }}
+    {% endif %}
+    <button onclick="goBack()" class="btn btn-secondary btn-block text-white">Atr&aacute;s</button>
+{% endblock %}

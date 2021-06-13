@@ -1,0 +1,90 @@
+{{ form_start(form) }}
+    {% if form_errors(form.nombre) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.nombre) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fecha) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fecha) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.emisor) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.emisor) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <div class="form-group">
+        <div style="float: right;">
+            <div style="float: right; margin-right: 10px;">
+                {{ form_label(form.emisor) }}
+                {{ form_widget(form.emisor) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-emisor', 'id_span':'span-emisor'}) }}
+            </div>
+            <div style="margin-right: 380px;">
+                {{ form_label(form.fecha) }}
+                {{ form_widget(form.fecha) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-fecha', 'id_span':'span-fecha', 'width':'280px'}) }}
+            </div>
+        </div>
+        <div style="width: 300px;">
+            {{ form_label(form.nombre) }}
+            {{ form_widget(form.nombre) }}
+        </div>
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-nombre', 'id_span':'span-nombre'}) }}
+    </div>
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanEval = document.getElementById('span-nombre');
+            var inputEval = document.getElementById("situacion_nombre");
+            if (inputEval.checkValidity() === false) {
+                $('#req-nombre').removeClass('collapse');
+                spanEval.innerHTML = inputEval.validationMessage;
+                $('#situacion_nombre:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nombre').addClass('collapse');
+                $('#situacion_nombre').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanFecha = document.getElementById('span-fecha');
+            var inputFecha = document.getElementById("situacion_fecha");
+            if (inputFecha.checkValidity() === false) {
+                $('#req-fecha').removeClass('collapse');
+                spanFecha.innerHTML = inputFecha.validationMessage;
+                $('#situacion_fecha:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fecha').addClass('collapse');
+                $('#situacion_fecha').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanEmisor = document.getElementById('span-emisor');
+            var inputEmisor = document.getElementById("situacion_emisor");
+            if (inputEmisor.checkValidity() === false) {
+                $('#req-emisor').removeClass('collapse');
+                spanEmisor.innerHTML = inputEmisor.validationMessage;
+                $('#situacion_emisor:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-emisor').addClass('collapse');
+                $('#situacion_emisor').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

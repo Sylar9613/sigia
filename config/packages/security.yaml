@@ -1,13 +1,59 @@
 security:
+    access_denied_url: access_denied
+    encoders:
+        App\Entity\User:
+            algorithm: auto
+        Symfony\Component\Security\Core\User\User: auto
+
+    role_hierarchy:
+            ROLE_SUPERVISOR: ROLE_USER
+            ROLE_ATP: ROLE_USER
+            ROLE_JURIDICO: ROLE_USER
+            ROLE_ADMIN: ROLE_JURIDICO
+            ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_SUPERVISOR, ROLE_ATP]
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                #Debe ser removido para loguearse tanto por username como por email
+                #property: email
+        backend_users:
+            memory:
+                users:
+                    arian: { password: '$2y$13$mxNjbAgtlNikabeNYBVWw.QxTw5pafTc4GLtFLNzNdL8lnyuaLiY2', roles: ['ROLE_ADMIN'] }
+                    admin: { password: '$2y$13$A4NFxI1RDm4xfX1ARE.diOs8JasvXQOwNJnB1C/6yvgRQBGcUaEIK', roles: ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'] }
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        usuarios:
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
+                remember_me_parameter: _remember_me
+            pattern: ^/
+            user_checker: App\Security\UserChecker
+            anonymous: ~
+            provider: app_user_provider #backend_users
+            form_login:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
+                #use_forward: true
+                #use_referer: true
+                #target_path_parameter: redirect_url
+                #default_target_path: login
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: logout
+                target: /
         main:
-            anonymous: true
+            anonymous: ~
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -18,5 +64,19 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        # matches /admin/* except for anything matching the above rule
+        - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/user/*, roles: ROLE_USER }
+        - { path: ^/user/new, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/user, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/log, roles: ROLE_SUPERVISOR }
+        - { path: ^/, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        #- { path: ^/admin/secured/login, roles: ROLE_ADMIN }
+         #       - { path: ^/admin/secured, roles: ROLE_SUPER_ADMIN }
+          #      - { path: ^/bitacora, roles: ROLE_SUPER_ADMIN }
+           #     - { path: ^/admin, roles: ROLE_ADMIN }
+            #    - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+             #   - { path: ^/, roles: ROLE_USUARIO }

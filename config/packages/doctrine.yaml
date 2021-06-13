@@ -1,13 +1,18 @@
 doctrine:
     dbal:
-        # configure these for your database server
+        # configure these example for your database server
+        dbname: database
+        host: localhost
+        port: 1234
+        user: user
+        password: secret
         driver: 'pdo_mysql'
         server_version: '5.7'
         charset: utf8mb4
         default_table_options:
             charset: utf8mb4
             collate: utf8mb4_unicode_ci
-
+        # if the url option is specified, it will override the above config
         url: '%env(resolve:DATABASE_URL)%'
     orm:
         auto_generate_proxy_classes: true

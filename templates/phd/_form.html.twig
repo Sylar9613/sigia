@@ -1,0 +1,223 @@
+{{ form_start(form) }}
+    {% if form_errors(form.unidadOrganizativa) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.unidadOrganizativa) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.fecha) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.fecha) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.numeroExpediente) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.numeroExpediente) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.numeroCausa) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.numeroCausa) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.danoEconomicoCup) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.danoEconomicoCup) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.danoEconomicoOtraMoneda) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.danoEconomicoOtraMoneda) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.sintesis) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.sintesis) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form.implicados) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form.implicados) }}
+        </div>
+    {% endif %}
+    {% if form_errors(form) %}
+        <div class="alert alert-danger fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>{{ form_errors(form) }}
+        </div>
+    {% endif %}
+    <br/>
+    <div class="form-group">
+        <div class="float-right">
+            {{ form_row(form.fecha) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-fecha', 'id_span':'span-fecha', 'width':'210px;'}) }}
+        </div>
+        <div class="float-right" style="margin-right: 90px;">
+            {{ form_row(form.accionControl) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ot', 'id_span':'span-ot', 'width':'260px;'}) }}
+        </div>
+        {{ form_row(form.unidadOrganizativa) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-uo', 'id_span':'span-uo'}) }}
+    </div>
+    <br/>
+    <div class="form-group">
+        <div style="float: right;">
+            {{ form_label(form.danoEconomicoOtraMoneda) }}
+            {{ form_widget(form.danoEconomicoOtraMoneda) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-om', 'id_span':'span-om', 'width':'210px;'}) }}
+        </div>
+        <div style="width: 80%;">
+            <div class="float-right" style="margin-right: 50px;">
+                {{ form_label(form.danoEconomicoCup) }}
+                {{ form_widget(form.danoEconomicoCup) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-cup', 'id_span':'span-cup', 'width':'210px;'}) }}
+            </div>
+            <div style="float: right; margin-right: 50px;">
+                {{ form_label(form.numeroCausa) }}
+                {{ form_widget(form.numeroCausa) }}
+                {{ include('admin/validation_js.html.twig', {'id_req':'req-nc', 'id_span':'span-nc', 'width':'220px;'}) }}
+            </div>
+            {{ form_label(form.numeroExpediente) }}
+            {{ form_widget(form.numeroExpediente) }}
+            {{ include('admin/validation_js.html.twig', {'id_req':'req-ne', 'id_span':'span-ne', 'width':'220px;'}) }}
+        </div>
+    </div>
+    <br/>
+    <div class="float-right">
+        {{ form_row(form.situacion) }}
+    </div>
+    {{ form_row(form.entidad) }}
+    <br/>
+    <div class="float-right" style="width: 650px;">
+        {{ form_row(form.sintesis) }}
+        {{ include('admin/validation_js.html.twig', {'id_req':'req-sintesis', 'id_span':'span-sintesis'}) }}
+    </div>
+    {{ form_row(form.causaCondicion) }}
+    <br/>
+    {{ form_row(form.tipoAccion) }}
+    <br/>
+    <h6>{{ form_label(form.implicados) }}</h6>
+    <ul class="implicados" data-prototype="{{ form_widget(form.implicados.vars.prototype)|e('html_attr') }}">
+        {% for implicado in form.implicados %}
+            <li style="border-top: 1px dashed #dc3545; padding-top: 20px; margin-left: -40px; list-style-type:none;">{{ form_widget(implicado) }}</li>
+        {% endfor %}
+    </ul>
+    {{ form_widget(form.implicados) }}
+    <br/><br/>
+    <button class="btn {{ button_class|default('btn-success') }} btn-block text-white"><i class="fa fa-fw {{ button_fa|default('fa-save') }}"></i>&nbsp;{{ button_label|default('Guardar') }}</button>
+{{ form_end(form) }}
+<script>
+    function validateFields(input) {
+        if (input === '1'){
+            var spanUo = document.getElementById('span-uo');
+            var inputUo = document.getElementById("phd_unidadOrganizativa");
+            if (inputUo.checkValidity() === false) {
+                $('#req-uo').removeClass('collapse');
+                spanUo.innerHTML = inputUo.validationMessage;
+                $('#phd_unidadOrganizativa:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-uo').addClass('collapse');
+                $('#phd_unidadOrganizativa').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '2'){
+            var spanOt = document.getElementById('span-ot');
+            var inputOt = document.getElementById("phd_ordenTrabajo");
+            if (inputOt.checkValidity() === false) {
+                $('#req-ot').removeClass('collapse');
+                spanOt.innerHTML = inputOt.validationMessage;
+                $('#phd_ordenTrabajo:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ot').addClass('collapse');
+                $('#phd_ordenTrabajo').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '3'){
+            var spanFecha = document.getElementById('span-fecha');
+            var inputFecha = document.getElementById("phd_fecha");
+            if (inputFecha.checkValidity() === false) {
+                $('#req-fecha').removeClass('collapse');
+                spanFecha.innerHTML = inputFecha.validationMessage;
+                $('#phd_fecha:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-fecha').addClass('collapse');
+                $('#phd_fecha').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '4'){
+            var spanNe = document.getElementById('span-ne');
+            var inputNe = document.getElementById("phd_numeroExpediente");
+            if (inputNe.checkValidity() === false) {
+                $('#req-ne').removeClass('collapse');
+                spanNe.innerHTML = inputNe.validationMessage;
+                $('#phd_numeroExpediente:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-ne').addClass('collapse');
+                $('#phd_numeroExpediente').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '5'){
+            var spanNc = document.getElementById('span-nc');
+            var inputNc = document.getElementById("phd_numeroCausa");
+            if (inputNc.checkValidity() === false) {
+                $('#req-nc').removeClass('collapse');
+                spanNc.innerHTML = inputNc.validationMessage;
+                $('#phd_numeroCausa:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-nc').addClass('collapse');
+                $('#phd_numeroCausa').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '6'){
+            var spanSintesis = document.getElementById('span-sintesis');
+            var inputSintesis = document.getElementById("phd_sintesis");
+            if (inputSintesis.checkValidity() === false) {
+                $('#req-sintesis').removeClass('collapse');
+                spanSintesis.innerHTML = inputSintesis.validationMessage;
+                $('#phd_sintesis:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-sintesis').addClass('collapse');
+                $('#phd_sintesis').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '7'){
+            var spanCup = document.getElementById('span-cup');
+            var inputCup = document.getElementById("phd_danoEconomicoCup");
+            if (inputCup.checkValidity() === false) {
+                $('#req-cup').removeClass('collapse');
+                spanCup.innerHTML = inputCup.validationMessage;
+                $('#phd_danoEconomicoCup:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-cup').addClass('collapse');
+                $('#phd_danoEconomicoCup').css("border", "1px solid #ced4da");
+            }
+        }
+        if (input === '8'){
+            var spanOm = document.getElementById('span-om');
+            var inputOm = document.getElementById("phd_danoEconomicoOtraMoneda");
+            if (inputOm.checkValidity() === false) {
+                $('#req-om').removeClass('collapse');
+                spanOm.innerHTML = inputOm.validationMessage;
+                $('#phd_danoEconomicoOtraMoneda:invalid').css("border", "1px solid #dc3545");
+            }
+            else {
+                $('#req-om').addClass('collapse');
+                $('#phd_danoEconomicoOtraMoneda').css("border", "1px solid #ced4da");
+            }
+        }
+    }
+</script>

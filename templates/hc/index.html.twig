@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hechos de corrupci&oacute;n administrativa{% endblock %}
+
+{% block body %}
+    <br/>
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[0] }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a class="normal">{{ routes[1] }}</a>
+        </li>
+        <li class="breadcrumb-item activo">{{ routes[2] }}</li>
+    </ol>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-primary-angular" href="{{ path('hc_new') }}"><span><i class="fa fa-fw fa-file-o"></i>Nuevo</span></a>
+    {% endif %}
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-accent" href="{{ path('hc_download_pdf') }}"><span><i class="fa fa-fw fa-file-pdf-o"></i>Reporte</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button bg-word" href="{{ path('hc_to_word') }}"><span><i class="fa fa-fw fa-file-word-o"></i>MS Word</span></a>
+    <a style="font-weight: bold; font-size: 20px; font-family: 'Segoe UI', Arial, sans-serif;vertical-align:middle" class="btn button btn-secondary" href="{{ path('homepage') }}"><span><i class="fa fa-fw fa-home"></i>Home</span></a>
+    <hr/>
+    <form method="post" action="{{ path('hc_filter') }}">
+        <div class="form-group">
+            <button style="margin-top: 28px;" type="submit" class="btn btn-success">
+                <i class="fa fa-fw fa-filter"></i>&nbsp;Filtrar</button>
+            <div style="width: 40%;float: left;">
+                <label><b>Entidades</b></label>
+                <select name="filtrar_ent" class="form-control" style="width: 91%;">
+                    <option value="todas">Todas</option>
+                    {% for a in entidades %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="width: 40%;float: left;">
+                <label><b>Municipios</b></label>
+                <select name="filtrar_mun" class="form-control" style="width: 91%;">
+                    <option value="todos">Todos</option>
+                    {% for a in municipios %}
+                        <option value="{{ a.id }}">{{ a.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </form>
+    <hr/>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-fw fa-table"></i> Hechos de corrupci&oacute;n administrativa
+        </div>
+        <div class="card-body">
+            <br/>
+            <div class="table-responsive" style="font-size: 15px;">
+                <table class="table table-responsive table-hover" id="dataTable" width="100%" cellspacing="0" align="center" style="text-align: center;">
+                    <thead>
+                        <tr class="blue-grey">
+                            {#{% if is_granted('ROLE_ADMIN') %}
+                                <th>Id</th>
+                            {% endif %}#}
+                            <th>&numero; Exp.</th>
+                            <th>Categor&iacute;a</th>
+                            <th>Municipio</th>
+                            <th title="Fecha de detección">F. Detec.</th>
+                            <th title="Fecha de ocurrencia">F. Ocurr.</th>
+                            <th colspan="2" class="text-center">
+                                Total de implicados<hr style="margin: 8px;"/>
+                                <span style="margin-right: 20px; font-size: 12px;" title="Total de implicados de la entidad">Ent.</span>
+                                <span style="font-size: 12px;" title="Total de implicados de otras entidades">Otras</span>
+                            </th>
+                            <th>Da&ntilde;os CUP</th>
+                            <th>Recuperado CUP</th>
+                            <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr class="blue-grey">
+                            {#{% if is_granted('ROLE_ADMIN') %}
+                                <th>Id</th>
+                            {% endif %}#}
+                            <th>&numero; Exp.</th>
+                            <th>Categor&iacute;a</th>
+                            <th>Municipio</th>
+                            <th title="Fecha de detección">F. Detec.</th>
+                            <th title="Fecha de ocurrencia">F. Ocurr.</th>
+                            <th colspan="2" class="text-center">
+                                <span style="margin-right: 20px; font-size: 12px;" title="Total de implicados de la entidad">Ent.</span>
+                                <span style="font-size: 12px;" title="Total de implicados de otras entidades">Otras</span>
+                                <hr style="margin: 8px;"/>
+                                Total de implicados
+                            </th>
+                            <th>Da&ntilde;os CUP</th>
+                            <th>Recuperado CUP</th>
+                            <th><i class="fa fa-fw fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for h_c in hcs if h_c.activo==1 or is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            {#{% if is_granted('ROLE_ADMIN') %}
+                                <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('hc_show', { 'id': h_c.id }) }}">{{ h_c.id }}</a>
+                                </td>
+                                <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.numeroExpediente }}</td>
+                            {% else %}
+                                <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>
+                                    <a href="{{ path('hc_show', { 'id': h_c.id }) }}">{{ h_c.numeroExpediente }}</a>
+                                </td>
+                            {% endif %}#}
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>
+                                <a href="{{ path('hc_show', { 'id': h_c.id }) }}">{{ h_c.numeroExpediente }}</a>
+                            </td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.phc.categoria }}</td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.phc.municipio.nombre }}</td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.phc.fechaDeteccion ? h_c.phc.fechaDeteccion|date('Y-m-d') : '' }}</td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.phc.fechaOcurrencia ? h_c.phc.fechaOcurrencia|date('Y-m-d') : '' }}</td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.totalImplicadosEntidad }}</td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.totalImplicadosOtras }}</td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.afectacionEconomicaCUP }}</td>
+                            <td{% if h_c.activo==0 %} class="admin-disabled" {% endif %}>{{ h_c.recuperadoCUP }}</td>
+                            <td>
+                                <a class="btn btn-sm blue-grey" href="{{ path('hc_show', { 'id': h_c.id }) }}"><i class="fa fa-fw fa-eye"></i> Ver</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% if h_c.activo==0 %}
+                                        &nbsp;<a class="btn btn-sm bg-primary-angular" href="{{ path('hc_activate', {'id': h_c.id}) }}"><i class="fa fa-fw fa-unlock-alt"></i> Activar</a>
+                                    {% else %}
+                                        &nbsp;<a class="btn btn-sm blue-grey" href="{{ path('hc_edit', { 'id': h_c.id }) }}"><i class="fa fa-fw fa-pencil-square-o"></i> Editar</a>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="15">No se encontr&oacute; ning&uacute;n registro</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {{ include('admin/success.html.twig') }}
+{% endblock %}

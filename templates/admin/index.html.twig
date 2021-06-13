@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title %}Principal{% endblock %}
+{% block body %}
+    {{ include('admin/slideshow.html.twig') }}
+    {{ include('admin/body_principal.html.twig') }}
+    {# read and display just one flash message type #}{#
+    {% for message in app.flashes('notice') %}
+        <div class="flash-notice">
+            {{ message }}
+        </div>
+    {% endfor %}#}
+    {{ include('admin/success.html.twig') }}
+    {{ include('admin/congratulations.html.twig') }}
+{% endblock %}
